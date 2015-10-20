@@ -82,10 +82,10 @@ class Data
     }
 
     /**
-     * key - this will generate a 35 character key
+     * key - this will generate a 32 character key
      * @return string
      */
-     public static function create_key($length = 32)
+     public static function createKey($length = 32)
      {
         $chars = "!@#$%^&*()_+-=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         $key = "";
