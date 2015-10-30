@@ -34,32 +34,17 @@ class Url
     }
 
     /**
-     * Created the absolute address to the template folder.
+     * Created the absolute address to the assets folder.
      *
      * @param  boolean $custom
-     * @return string url to template folder
+     * @return string url to assets folder
      */
-    public static function templatePath($custom = false)
+    public static function assetsPath($custom = false)
     {
         if ($custom == true) {
-            return DIR.'app/templates/'.$custom.'/';
+            return DIR.'assets/'.$custom.'/';
         } else {
-            return DIR.'app/templates/'.TEMPLATE.'/';
-        }
-    }
-
-    /**
-     * Created the relative address to the template folder.
-     *
-     * @param  boolean $custom
-     * @return string url to template folder
-     */
-    public static function relativeTemplatePath($custom = false)
-    {
-        if ($custom) {
-            return "app/templates/".$custom."/";
-        } else {
-            return "app/templates/".TEMPLATE."/";
+            return DIR.'assets/';
         }
     }
 

@@ -16,7 +16,7 @@ $hooks = Hooks::get();
 <!-- JS -->
 <?php
 Assets::js(array(
-	Url::templatePath() . 'js/jquery.js',
+	Url::assetsPath() . 'js/jquery.js',
 	'//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'
 ));
 
