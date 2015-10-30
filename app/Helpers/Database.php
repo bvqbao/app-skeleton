@@ -114,6 +114,7 @@ class Database extends PDO
      * insert method
      * @param  string $table table name
      * @param  array $data  array of columns and values
+     * @return integer the ID of the last inserted row
      */
     public function insert($table, $data)
     {
@@ -137,6 +138,7 @@ class Database extends PDO
      * @param  string $table table name
      * @param  array $data  array of columns and values
      * @param  array $where array of columns and values
+     * @return integer number of updated rows
      */
     public function update($table, $data, $where)
     {
@@ -180,6 +182,7 @@ class Database extends PDO
      * @param  string $table table name
      * @param  array $where array of columns and values
      * @param  integer   $limit limit number of records
+     * @return integer number of deleted rows
      */
     public function delete($table, $where, $limit = 1)
     {
