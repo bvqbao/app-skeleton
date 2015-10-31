@@ -3,7 +3,7 @@
  * SimpleMVC specifed directory default is '.'
  * If app folder is not in the same directory update it's path
  */
-$smvc = '.';
+$smvc = '../';
 
 /** Set the full path to the docroot */
 define('ROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);

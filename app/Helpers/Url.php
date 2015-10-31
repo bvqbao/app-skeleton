@@ -34,22 +34,22 @@ class Url
     }
 
     /**
-     * Created the absolute address to the assets folder.
+     * Create a relative web path.
      *
      * @param  boolean $custom
-     * @return string url to assets folder
+     * @return string relative web path
      */
-    public static function assetsPath($custom = false)
+    public static function relativeWebPath($custom = false)
     {
         if ($custom == true) {
-            return DIR.'assets/'.$custom.'/';
+            return DIR.$custom.'/';
         } else {
-            return DIR.'assets/';
+            return DIR;
         }
-    }
+    }    
 
     /**
-     * Converts plain text urls into HTML links, second argument will be
+     * Convert plain text urls into HTML links, second argument will be
      * used as the url label <a href=''>$custom</a>.
      *
      *

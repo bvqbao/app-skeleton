@@ -4,7 +4,6 @@
  */
 
 use Helpers\Assets;
-use Helpers\Url;
 use Helpers\Hooks;
 
 //initialise hooks
@@ -16,7 +15,7 @@ $hooks = Hooks::get();
 <!-- JS -->
 <?php
 Assets::js(array(
-	Url::assetsPath() . 'js/jquery.js',
+	DIR . 'js/jquery.js',
 	'//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'
 ));
 

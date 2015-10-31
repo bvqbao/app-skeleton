@@ -4,7 +4,6 @@
  */
 
 use Helpers\Assets;
-use Helpers\Url;
 use Helpers\Hooks;
 
 //initialise hooks
@@ -26,7 +25,7 @@ $hooks = Hooks::get();
 	<?php
 	Assets::css(array(
 		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
-		Url::assetsPath() . 'css/style.css',
+		DIR . 'css/style.css',
 	));
 
 	//hook for plugging in css
