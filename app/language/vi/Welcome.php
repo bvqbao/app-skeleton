@@ -12,14 +12,14 @@ return array(
 	',
 
 	// Subpage method
-	'subpage_text' => 'Trang phụ',
+	'subpage_text' => 'Trang con',
 	'subpage_message' => '
 		Xin chào, lời chào từ controller welcome và phương thức subpage! <br/>
 		Nội dung này có thể được thay đổi tại tập tin: <code>app/views/welcome/subpage.php</code>
 	',
 
 	// Buttons
-	'open_subpage' => 'Mở trang phụ',
+	'open_subpage' => 'Mở trang con',
 	'back_home' => 'Trang chủ',
 
 );
