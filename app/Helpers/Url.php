@@ -34,15 +34,15 @@ class Url
     }
 
     /**
-     * Create a relative web path.
+     * Create a relative url
      *
      * @param  boolean $custom
-     * @return string relative web path
+     * @return string relative url
      */
-    public static function relativeWebPath($custom = false)
+    public static function relativeUrl($custom = false)
     {
         if ($custom == true) {
-            return DIR.$custom.'/';
+            return DIR.$custom;
         } else {
             return DIR;
         }
