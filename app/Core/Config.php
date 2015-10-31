@@ -30,7 +30,7 @@ class Config
 
         /**
          * Define relative base path (the relative web path to 
-         *     the folder where the index.php file resides)
+         *     the folder in which the index.php file resides)
          */
         define('DIR', '/framework/public/');
 
