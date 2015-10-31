@@ -30,3 +30,4 @@ Full docs & tutorials are available at [simplemvcframework.com](http://simplemvc
 3. Upload the framework files to your server (only the contents of the ```public``` folder are required to be in your web root).
 4. Open ```app/Core/Config.php```, set your base path (it is the path from the web root to the folder where the ```index.php``` file resides), and database credentials (if a database is needed).
 5. Edit ```.htaccess``` file (located in your public folder) and save the base path (it is the path from the web root to the folder where the ```index.php``` file resides).
+6. If you have done the above steps correctly, you should have a working application now. Start working with your application by setting up your routes at ```app/Core/routes.php```.
