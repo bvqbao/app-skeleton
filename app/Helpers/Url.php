@@ -34,7 +34,7 @@ class Url
     }
 
     /**
-     * Create a relative url
+     * Create a relative url (url from the web root)
      *
      * @param  boolean $custom
      * @return string relative url
