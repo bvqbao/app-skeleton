@@ -34,10 +34,10 @@ class Url
     }
 
     /**
-     * Create a relative url (url from the web root)
+     * Create a root-relative url
      *
      * @param  boolean $custom
-     * @return string relative url
+     * @return string root-relative url
      */
     public static function relativeUrl($custom = false)
     {

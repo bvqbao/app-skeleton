@@ -29,7 +29,7 @@ class Config
         ob_start();
 
         /**
-         * Define relative base path (the relative web path to 
+         * Define relative base path (the root-relative path to 
          *     the folder in which the index.php file resides)
          */
         define('DIR', '/framework/public/');
