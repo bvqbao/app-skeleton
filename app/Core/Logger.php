@@ -114,12 +114,14 @@ class Logger
            <pre>{$trace}</pre>\n
            <hr />\n";
 
-        if (is_file(self::$errorFile) === false) {
-            file_put_contents(self::$errorFile, '');
+        $errorFilePath = SMVC.self::$errorFile;
+
+        if (is_file($errorFilePath) === false) {
+            file_put_contents($errorFilePath, '');
         }
 
         if (self::$clear) {
-            $f = fopen(self::$errorFile, "r+");
+            $f = fopen($errorFilePath, "r+");
             if ($f !== false) {
                 ftruncate($f, 0);
                 fclose($f);
@@ -127,10 +129,10 @@ class Logger
 
             $content = null;
         } else {
-            $content = file_get_contents(self::$errorFile);
+            $content = file_get_contents($errorFilePath);
         }
 
-        file_put_contents(self::$errorFile, $logMessage . $content);
+        file_put_contents($errorFilePath, $logMessage . $content);
 
         //send email
         self::sendEmail($logMessage);
@@ -152,13 +154,14 @@ class Logger
     {
         $date = date('M d, Y G:iA');
         $logMessage = "<p>Error on $date - $error</p>";
+        $errorFilePath = SMVC.self::$errorFile;
 
-        if (is_file(self::$errorFile) === false) {
-            file_put_contents(self::$errorFile, '');
+        if (is_file($errorFilePath) === false) {
+            file_put_contents($errorFilePath, '');
         }
 
         if (self::$clear) {
-            $f = fopen(self::$errorFile, "r+");
+            $f = fopen($errorFilePath, "r+");
             if ($f !== false) {
                 ftruncate($f, 0);
                 fclose($f);
@@ -166,8 +169,8 @@ class Logger
 
             $content = null;
         } else {
-            $content = file_get_contents(self::$errorFile);
-            file_put_contents(self::$errorFile, $logMessage . $content);
+            $content = file_get_contents($errorFilePath);
+            file_put_contents($errorFilePath, $logMessage . $content);
         }
 
         /** send email */
