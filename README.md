@@ -12,7 +12,7 @@ This is a customized version of the SMVC v2.2 which pulls out publicly-accessibl
 
 ## Documentation
 
-Full docs & tutorials are available at [simplemvcframework.com](http://simplemvcframework.com).
+Full docs & tutorials are available at [simplemvcframework.com](http://simplemvcframework.com) (although this is a customized version the documentation of the original one is still applicable).
 
 ## Requirements
 
