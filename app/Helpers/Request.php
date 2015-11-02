@@ -31,9 +31,9 @@ class Request
     protected static $phpInput = null;
 
     /**
-     * Get the request body.
+     * Get the request body payload.
      *
-     * @return  string  request body content.
+     * @return  string  request body
      */
     public static function body()
     {
@@ -48,7 +48,7 @@ class Request
      */
     public static function all()
     {
-        static::$vars === null and static::readVars();
+        static::$vars === null and static::hydrate();
         return static::$vars;
     }
 
@@ -85,7 +85,7 @@ class Request
      */
     public static function put($index = null, $default = null)
     {
-        static::$putDeleteVars === null and static::readVars();
+        static::$putDeleteVars === null and static::hydrate();
         return (func_num_args() === 0) ? static::$putDeleteVars : Arr::get(static::$putDeleteVars, $index, $default);
     }
 
@@ -98,7 +98,7 @@ class Request
      */
     public static function delete($index = null, $default = null)
     {
-        static::$putDeleteVars === null and static::readVars();
+        static::$putDeleteVars === null and static::hydrate();
         return (is_null($index) and func_num_args() === 0) ? static::$putDeleteVars : Arr::get(static::$putDeleteVars, $index, $default);
     }
 
@@ -121,22 +121,22 @@ class Request
      * @param   mixed   The default value
      * @return  string|array
      */
-    public static function param($index, $default = null)
+    public static function input($index, $default = null)
     {
-        static::$vars === null and static::readVars();
+        static::$vars === null and static::hydrate();
         return Arr::get(static::$vars, $index, $default);
     }
 
     /**
-     * Read all variables
+     * Hydrate the vars array
      *
      * @return  void
      */
-    protected static function readVars()
+    protected static function hydrate()
     {
         static::$vars = array_merge($_GET, $_POST);
 
-        if (static::isPut() or static::isDelete()) {
+        if (static::isMethod("PUT") or static::isMethod("DELETE")) {
             static::$phpInput === null and static::$phpInput = file_get_contents("php://input");
             if (strpos(Arr::get($_SERVER, "CONTENT_TYPE"), "www-form-urlencoded") !== false) {
                 static::$phpInput = urldecode(static::$phpInput);
@@ -146,7 +146,31 @@ class Request
         } else {
             static::$putDeleteVars = array();
         }
-    }    
+    }  
+
+    /**
+     * Fetch an item from the COOKIE array
+     *
+     * @param    string  The index key
+     * @param    mixed   The default value
+     * @return   string|array
+     */
+    public static function cookie($index = null, $default = null)
+    {
+        return (func_num_args() === 0) ? $_COOKIE : Arr::get($_COOKIE, $index, $default);
+    }
+
+    /**
+     * Fetch an item from the SERVER array
+     *
+     * @param   string  The index key
+     * @param   mixed   The default value
+     * @return  string|array
+     */
+    public static function server($index = null, $default = null)
+    {
+        return (func_num_args() === 0) ? $_SERVER : Arr::get($_SERVER, strtoupper($index), $default);
+    }      
 
     /**
      * Detect if request is Ajax.
@@ -164,50 +188,24 @@ class Request
     }
 
     /**
-     * Detect if request is POST request.
+     * Verify that the request method matches a given string.
      *
-     * @static static method
+     * @param  string the request method
      *
      * @return boolean
      */
-    public static function isPost()
+    public static function isMethod($method)
     {
-        return $_SERVER["REQUEST_METHOD"] === "POST";
+        return $_SERVER["REQUEST_METHOD"] === $method;
     }
 
     /**
-     * Detect if request is GET request.
+     * Get the request method.
      *
-     * @static static method
-     *
-     * @return boolean
+     * @return string the request method
      */
-    public static function isGet()
+    public static function method()
     {
-        return $_SERVER["REQUEST_METHOD"] === "GET";
-    }
-
-    /**
-     * Detect if request is PUT request.
-     *
-     * @static static method
-     *
-     * @return boolean
-     */
-    public static function isPut()
-    {
-        return $_SERVER["REQUEST_METHOD"] === "PUT";
-    }
-
-    /**
-     * Detect if request is DELETE request.
-     *
-     * @static static method
-     *
-     * @return boolean
-     */
-    public static function isDelete()
-    {
-        return $_SERVER["REQUEST_METHOD"] === "DELETE";
-    }    
+        return $_SERVER["REQUEST_METHOD"];
+    }  
 }
