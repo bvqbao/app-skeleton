@@ -153,7 +153,7 @@ class Router
         $args = !empty($parts) ? $parts : array();
 
         // Check for file
-        if (!file_exists("app/Controllers/$controller.php")) {
+        if (!file_exists(SMVC."app/Controllers/$controller.php")) {
             return false;
         }
 
