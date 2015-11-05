@@ -281,10 +281,10 @@ class Router
                     header("{$_SERVER['SERVER_PROTOCOL']} 404 Not Found");
 
                     $data['title'] = '404';
-                    $data['error'] = "Oops! Page not found..";
+                    $data['error'] = "Oops! Page not found.";
 
                     View::renderTemplate('header', $data);
-                    View::render('Error/404', $data);
+                    View::render('error/404', $data);
                     View::renderTemplate('footer', $data);
                 };
             }
