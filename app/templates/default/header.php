@@ -19,7 +19,7 @@ $hooks = Hooks::get();
 	//hook for plugging in meta tags
 	$hooks->run('meta');
 	?>
-	<title><?php echo $data['title'].' - '.SITETITLE; //SITETITLE defined in app/Core/Config.php ?></title>
+	<title><?php echo $data['title'].' - '.SITETITLE; //SITETITLE defined in app/Core/config.php ?></title>
 
 	<!-- CSS -->
 	<?php
