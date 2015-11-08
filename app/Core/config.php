@@ -19,7 +19,7 @@ ob_start();
  * Define relative base path (the root-relative path to 
  *     the folder in which the index.php file resides)
  */
-define('DIR', '/framework/public/');
+define('DIR', '/');
 
 /**
  * Set default controller and method for legacy calls.
