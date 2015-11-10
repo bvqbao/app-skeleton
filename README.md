@@ -6,9 +6,9 @@ Simple MVC Framework (SMVC) is a PHP 5.5 MVC system. It's designed to be lightwe
 
 The base framework comes with a range of helper classes.
 
-## Version 2.2+p
+## Version 2.2+orm
 
-This is a customized version of the SMVC v2.2 which pulls out publicly-accessible files (js/css/img files) from the ```app``` folder and places them in a separate folder. This setup enables more flexibility in organizing the application folder structure (i.e. placing the ```app``` and ```vendor``` folders outside the web root becomes easier now).
+This is a customized version of the SMVC v2.2 which integrates Laravel's ***Illuminate\Database*** and ***Illuminate\Validation*** packages into the framework.
 
 ## Documentation
 
@@ -30,4 +30,5 @@ Full docs & tutorials are available at [simplemvcframework.com](http://simplemvc
 3. Upload the framework files to your server (only the contents of the ```public``` folder are required to be in your web root).
 4. Open ```app/Core/config.php```, set your base path (it is the path from the web root to the folder in which the ```index.php``` file resides), and database credentials (if a database is needed).
 5. Edit ```.htaccess``` file (located in your public folder) and save the base path (it is the path from the web root to the folder in which the ```index.php``` file resides).
-6. If you have done the above steps correctly, you should have a working application now. Start working with your application by setting up your routes at ```app/Core/routes.php```.
+6. Navigate to your project on a terminal/command prompt then run ```composer install``` that will update the vendor folder.
+7. If you have done the above steps correctly, you should have a working application now. Start working with your application by setting up your routes at ```app/Core/routes.php```.
