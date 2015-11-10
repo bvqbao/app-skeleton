@@ -120,7 +120,7 @@ abstract class Model extends Eloquent
 	 *
 	 * @param \Illuminate\Validation\Validator $validator
 	 */
-	protected function addExtensions($validator) {}	
+	protected function extendRules($validator) {}	
 
 	/**
 	 * Create a validator for model attributes
@@ -135,7 +135,7 @@ abstract class Model extends Eloquent
 		$validator->setPresenceVerifier(new DatabasePresenceVerifier(parent::$resolver));
 
 		// Add validation extensions provided by child classes
-		$this->addExtensions($validator);
+		$this->extendRules($validator);
 
 		return $validator;	
 	}
