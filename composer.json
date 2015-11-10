@@ -13,7 +13,9 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0"
+        "php": ">=5.5.9",
+        "illuminate/database": "~5.1",
+        "illuminate/validation": "~5.1"
     },
     "autoload": {
         "psr-4": {"": "app/"}

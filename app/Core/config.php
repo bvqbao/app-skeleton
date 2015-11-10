@@ -99,3 +99,20 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
  * Start sessions.
  */
 Helpers\Session::init();
+
+/**
+ * Configure the database and boot Eloquent
+ */
+$capsule = new Illuminate\Database\Capsule\Manager;
+$capsule->addConnection([
+    'driver'    => DB_TYPE,
+    'host'      => DB_HOST,
+    'database'  => DB_NAME,
+    'username'  => DB_USER,
+    'password'  => DB_PASS,
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => PREFIX
+]);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
