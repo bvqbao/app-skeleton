@@ -167,8 +167,9 @@ abstract class Model extends Eloquent
 			$this->attributes["{$this->primaryKey}"], 
 			$this->getRulesInContext());
 
-		$validator = $this->createValidator($rules, 
-			array_merge($this->messages, $customMessages));
+		$customMessages = (empty($customMessages)) ? $this->messages : $customMessages;
+
+		$validator = $this->createValidator($rules, $customMessages);
 		if ($validator->passes()) {
 			return true;
 		}
