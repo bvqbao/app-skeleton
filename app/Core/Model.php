@@ -30,19 +30,19 @@ abstract class Model extends Eloquent
 	 * Store the validation rules.
 	 * @var array
 	 */
-	protected $rules = [];
+	protected static $rules = [];
+
+	/**
+	 * Store any custom messages for validation rules.
+	 * @var array
+	 */
+	protected static $messages = [];	
 
 	/**
 	 * Store the context we are validating within.
 	 * @var string
 	 */
 	protected $context = null;
-
-	/**
-	 * Store any custom messages for validation rules.
-	 * @var array
-	 */
-	protected $messages = [];
 
 	/**
 	 * Store any validation errors generated.
@@ -86,7 +86,7 @@ abstract class Model extends Eloquent
 	protected function hasContext()
 	{
 		return ( (strlen($this->context) > 0) or 
-			Arr::get($this->rules, self::DEFAULT_KEY) );
+			Arr::get(static::$rules, self::DEFAULT_KEY) );
 	}	
 
 	/**
@@ -97,11 +97,11 @@ abstract class Model extends Eloquent
 	protected function getRulesInContext()
 	{
 		if ( ! $this->hasContext()) {
-			return $this->rules;
+			return static::$rules;
 		}	
 
-		$rulesInContext = Arr::get($this->rules, self::DEFAULT_KEY, array());
-		if ( ! Arr::get($this->rules, $this->context)) {
+		$rulesInContext = Arr::get(static::$rules, self::DEFAULT_KEY, array());
+		if ( ! Arr::get(static::$rules, $this->context)) {
 			throw new \Exception(
 				sprintf(
 					"'%s' does not contain the validation context '%s'",
@@ -110,7 +110,7 @@ abstract class Model extends Eloquent
 				)
 			);
 		}
-		$rulesInContext = array_merge($rulesInContext, $this->rules[$this->context]);
+		$rulesInContext = array_merge($rulesInContext, static::$rules[$this->context]);
 		return $rulesInContext;
 	}
 
@@ -120,7 +120,7 @@ abstract class Model extends Eloquent
 	 *
 	 * @param \Illuminate\Validation\Validator $validator
 	 */
-	protected function extendRules($validator) {}	
+	protected static function extendRules($validator) {}	
 
 	/**
 	 * Create a validator for model attributes
@@ -136,7 +136,7 @@ abstract class Model extends Eloquent
 		$validator->setPresenceVerifier(new DatabasePresenceVerifier(parent::$resolver));
 
 		// Add validation extensions provided by child classes
-		$this->extendRules($validator);
+		static::extendRules($validator);
 
 		return $validator;	
 	}
@@ -167,7 +167,7 @@ abstract class Model extends Eloquent
 			$this->attributes["{$this->primaryKey}"], 
 			$this->getRulesInContext());
 
-		$customMessages = (empty($customMessages)) ? $this->messages : $customMessages;
+		$customMessages = (empty($customMessages)) ? static::$messages : $customMessages;
 
 		$validator = $this->createValidator($rules, $customMessages);
 		if ($validator->passes()) {
