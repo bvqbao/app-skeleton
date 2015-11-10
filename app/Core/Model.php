@@ -118,18 +118,20 @@ abstract class Model extends Eloquent
 	 * Stub method that can be extended by child classes.
 	 * Passes a validator object and allows for adding validation extensions.
 	 *
-	 * @param \Core\Validator $validator
+	 * @param \Illuminate\Validation\Validator $validator
 	 */
 	protected function addExtensions($validator) {}	
 
 	/**
 	 * Create a validator for model attributes
 	 * @param  array  $rules    rules used by the validator
-	 * @return \Core\Validator
+	 * @return \Illuminate\Validation\Validator
 	 */
 	protected function createValidator(array $rules = []) 
 	{
 		$validator = Validator::make($this->attributes, $rules, $this->messages);
+
+		// Enable database-dependent validations (e.g. unique)
 		$validator->setPresenceVerifier(new DatabasePresenceVerifier(parent::$resolver));
 
 		// Add validation extensions provided by child classes
