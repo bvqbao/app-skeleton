@@ -125,11 +125,12 @@ abstract class Model extends Eloquent
 	/**
 	 * Create a validator for model attributes
 	 * @param  array  $rules    rules used by the validator
+	 * @param  array  $messages validation messages
 	 * @return \Illuminate\Validation\Validator
 	 */
-	protected function createValidator(array $rules = []) 
+	protected function createValidator(array $rules, array $messages = []) 
 	{
-		$validator = Validator::make($this->attributes, $rules, $this->messages);
+		$validator = Validator::make($this->attributes, $rules, $messages);
 
 		// Enable database-dependent validations (e.g. unique)
 		$validator->setPresenceVerifier(new DatabasePresenceVerifier(parent::$resolver));
@@ -141,32 +142,33 @@ abstract class Model extends Eloquent
 	}
 
 	/**
-	 * Replace the placeholders in validation rules
+	 * Replace the placeholders in strings
 	 * @param  string $placeholder 	the placeholder
 	 * @param  string $value		the placeholder value
-	 * @param  array  $rules 		the validation rules
+	 * @param  array  $strs 		the strings that contain placeholders
 	 * @return array 
 	 */
-	protected function replacePlaceholders($placeholder, $value, array $rules = [])
+	protected function replacePlaceholders($placeholder, $value, array $strs)
 	{
-        foreach ($rules as &$rule) {
-            $rule = str_replace($placeholder, $value, $rule);
+        foreach ($strs as &$str) {
+            $str = str_replace($placeholder, $value, $str);
         }		
 
-        return $rules;
+        return $strs;
 	}	
 
 	/**
 	 * Validate model data
 	 * @return boolean
 	 */
-	public function validate()
+	public function validate(array $customMessages = [])
 	{
 		$rules = $this->replacePlaceholders(':id', 
 			$this->attributes["{$this->primaryKey}"], 
 			$this->getRulesInContext());
 
-		$validator = $this->createValidator($rules);
+		$validator = $this->createValidator($rules, 
+			array_merge($this->messages, $customMessages));
 		if ($validator->passes()) {
 			return true;
 		}
