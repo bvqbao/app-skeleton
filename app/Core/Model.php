@@ -46,7 +46,7 @@ abstract class Model extends Eloquent
 
 	/**
 	 * Store any validation errors generated.
-	 * @var array
+	 * @var \Illuminate\Support\MessageBag
 	 */
 	protected $errors = [];
 
@@ -116,14 +116,14 @@ abstract class Model extends Eloquent
 
 	/**
 	 * Stub method that can be extended by child classes.
-	 * Passes a validator object and allows for adding validation extensions.
+	 * Passes a validator object and allows for adding custom rules.
 	 *
 	 * @param \Illuminate\Validation\Validator $validator
 	 */
-	protected static function extendRules($validator) {}	
+	protected static function addCustomRules($validator) {}	
 
 	/**
-	 * Create a validator for model attributes
+	 * Create a validator for current attributes
 	 * @param  array  $rules    rules used by the validator
 	 * @param  array  $messages validation messages
 	 * @return \Illuminate\Validation\Validator
@@ -135,8 +135,8 @@ abstract class Model extends Eloquent
 		// Enable database-dependent validations (e.g. unique)
 		$validator->setPresenceVerifier(new DatabasePresenceVerifier(parent::$resolver));
 
-		// Add validation extensions provided by child classes
-		static::extendRules($validator);
+		// Add custom rules provided by child classes
+		static::addCustomRules($validator);
 
 		return $validator;	
 	}
@@ -145,20 +145,20 @@ abstract class Model extends Eloquent
 	 * Replace the placeholders in strings
 	 * @param  string $placeholder 	the placeholder
 	 * @param  string $value		the placeholder value
-	 * @param  array  $strs 		the strings that contain placeholders
+	 * @param  array  $strings 		the strings that contain placeholders
 	 * @return array 
 	 */
-	protected function replacePlaceholders($placeholder, $value, array $strs)
+	protected function replacePlaceholders($placeholder, $value, array $strings)
 	{
-        foreach ($strs as &$str) {
-            $str = str_replace($placeholder, $value, $str);
+        foreach ($strings as &$string) {
+            $string = str_replace($placeholder, $value, $string);
         }		
 
-        return $strs;
+        return $strings;
 	}	
 
 	/**
-	 * Validate model data
+	 * Validate current attributes against rules
 	 * @return boolean
 	 */
 	public function validate(array $customMessages = [])
@@ -179,7 +179,7 @@ abstract class Model extends Eloquent
 	}
 
 	/**
-	 * Return data validation errors
+	 * Return validation errors
 	 * @return \Illuminate\Support\MessageBag
 	 */
 	public function errors()
