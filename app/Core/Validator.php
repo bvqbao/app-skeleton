@@ -13,38 +13,59 @@ use Illuminate\Validation\Factory;
 use Symfony\Component\Translation\Translator;
 
 /**
- * Make it a little bit easier to use \Illuminate\Validation\Validator class inside the framework.
+ * Simulate Laravel's Validator facade.
  */
 class Validator
 {
 	/**
-	 * Store the validator factory.
+	 * Store the validator instance.
+	 * 
 	 * @var \Illuminate\Validation\Factory
 	 */
-	protected static $factory = null;
+	protected static $instance = null;
 
 	/**
 	 * Create a new factory instance (if necessary).
+	 * 
 	 * @return \Illuminate\Validation\Factory
 	 */
-	protected static function getFactory()
+	protected static function getInstance()
 	{
-		if (! static::$factory) {
-			static::$factory = new Factory(new Translator('en_US'));
+		if (! static::$instance) {
+			static::$instance = new Factory(new Translator('en_US'));
 		}
-		return static::$factory;
+		return static::$instance;
 	}
 
-	/**
-	 * Create a new validator instance.
-	 * @param  array  $data
-	 * @param  array  $rules
-	 * @param  array  $messages
-	 * @param  array  $customAttributes
-	 * @return \Illuminate\Validation\Validator
-	 */
-	public static function make(array $data, array $rules, array $messages = [], array $customAttributes = [])
-	{
-		return static::getFactory()->make($data, $rules, $messages, $customAttributes);
-	}
+    /**
+     * Handle dynamic, static calls to the object.
+     *
+     * @param  string  $method
+     * @param  array   $args
+     * @return mixed
+     */
+    public static function __callStatic($method, $args)
+    {
+        $instance = static::getInstance();
+
+        switch (count($args)) {
+            case 0:
+                return $instance->$method();
+
+            case 1:
+                return $instance->$method($args[0]);
+
+            case 2:
+                return $instance->$method($args[0], $args[1]);
+
+            case 3:
+                return $instance->$method($args[0], $args[1], $args[2]);
+
+            case 4:
+                return $instance->$method($args[0], $args[1], $args[2], $args[3]);
+
+            default:
+                return call_user_func_array([$instance, $method], $args);
+        }
+    }    	
 }
