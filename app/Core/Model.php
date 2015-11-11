@@ -28,30 +28,35 @@ abstract class Model extends Eloquent
 
 	/**
 	 * Store the validation rules.
+	 * 
 	 * @var array
 	 */
 	protected static $rules = [];
 
 	/**
 	 * Store any custom messages for validation rules.
+	 * 
 	 * @var array
 	 */
 	protected static $messages = [];	
 
 	/**
 	 * Store the context we are validating within.
+	 * 
 	 * @var string
 	 */
 	protected $context = null;
 
 	/**
 	 * Store any validation errors generated.
+	 * 
 	 * @var \Illuminate\Support\MessageBag
 	 */
-	protected $errors = [];
+	protected $errors;
 
 	/**
 	 * Disable timestamps.
+	 * 
 	 * @var boolean
 	 */
 	public $timestamps = false;
@@ -62,7 +67,7 @@ abstract class Model extends Eloquent
 	 * @param  string $context
 	 * @return object
 	 */
-	public function setContext($context)
+	public function withinContext($context)
 	{
 		$this->context = trim($context);
 		return $this;
@@ -90,7 +95,7 @@ abstract class Model extends Eloquent
 	}	
 
 	/**
-	 * Get the validaton rules within the validation context
+	 * Get the validaton rules within the validation context.
 	 *
 	 * @return array
 	 */
@@ -123,7 +128,8 @@ abstract class Model extends Eloquent
 	protected static function addCustomRules($validator) {}	
 
 	/**
-	 * Create a validator for current attributes
+	 * Create a validator for current attributes.
+	 * 
 	 * @param  array  $rules    rules used by the validator
 	 * @param  array  $messages validation messages
 	 * @return \Illuminate\Validation\Validator
@@ -142,7 +148,8 @@ abstract class Model extends Eloquent
 	}
 
 	/**
-	 * Replace the placeholders in strings
+	 * Replace the placeholders in strings.
+	 * 
 	 * @param  string $placeholder 	the placeholder
 	 * @param  string $value		the placeholder value
 	 * @param  array  $strings 		the strings that contain placeholders
@@ -158,7 +165,8 @@ abstract class Model extends Eloquent
 	}	
 
 	/**
-	 * Validate current attributes against rules
+	 * Validate current attributes against rules.
+	 * 
 	 * @return boolean
 	 */
 	public function validate(array $customMessages = [])
@@ -179,7 +187,8 @@ abstract class Model extends Eloquent
 	}
 
 	/**
-	 * Return validation errors
+	 * Return validation errors.
+	 * 
 	 * @return \Illuminate\Support\MessageBag
 	 */
 	public function errors()
