@@ -38,8 +38,6 @@ class Language
      */
     public function load($name, $code = null)
     {
-        $code = $code ?: self::getLocale();
-
         try {
             $this->array = self::tryToLoad($name, $code);
         } catch (\Exception $e) {
@@ -75,8 +73,6 @@ class Language
      */
     public static function show($value, $name, $code = null)
     {
-        $code = $code ?: self::getLocale();
-
         try {
             $array = self::tryToLoad($name, $code);
         } catch (\Exception $e) {
@@ -135,17 +131,15 @@ class Language
      */
     public static function silentlyLoad($name, $code = null)
     {
-        $code = $code ?: self::getLocale();
-
         try {
-            $content = self::tryToLoad($name, $code);
+            $array = self::tryToLoad($name, $code);
         } catch (\Exception $e) {
             Logger::newMessage($e);
             /** return an empty array if something went wrong */
-            $content = [];
+            $array = [];
         }
 
-        return $content;
+        return $array;
     } 
 
     /**
@@ -158,6 +152,8 @@ class Language
      */
     private static function tryToLoad($name, $code)
     {
+        $code = $code ?: self::getLocale();
+
         $file = SMVC."app/language/$code/$name.php";
         if (is_readable($file)) {
             return include($file);
