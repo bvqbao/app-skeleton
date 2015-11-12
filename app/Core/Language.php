@@ -5,7 +5,7 @@
  * @author Bartek Kuśmierczuk - contact@qsma.pl - http://qsma.pl
  * @version 2.2
  * @date November 18, 2014
- * @date updated Sept 19, 2015
+ * @date updated November 12, 2015
  */
 
 namespace Core;
@@ -25,13 +25,23 @@ class Language
     private $array;
 
     /**
+     * Variable holds the default locale.
+     * 
+     * @var string
+     */
+    private static $locale = LANGUAGE_CODE;
+
+    /**
      * Load language function.
      *
      * @param string $name
      * @param string $code
      */
-    public function load($name, $code = LANGUAGE_CODE)
+    public function load($name, $code = null)
     {
+        /** if there is no specified language, use the default one */
+        $code = $code ?: self::getLocale() ;
+
         /** lang file */
         $file = SMVC."app/language/$code/$name.php";
 
@@ -71,8 +81,11 @@ class Language
      *
      * @return string
      */
-    public static function show($value, $name, $code = LANGUAGE_CODE)
+    public static function show($value, $name, $code = null)
     {
+        /** if there is no specified language, use the default one */
+        $code = $code ?: self::getLocale() ;
+
         /** lang file */
         $file = SMVC."app/language/$code/$name.php";
 
@@ -92,4 +105,50 @@ class Language
             return $value;
         }
     }
+
+    /**
+     * Get the current locale.
+     * 
+     * @return string
+     */
+    public static function getLocale()
+    {
+        return self::$locale;
+    }
+
+    /**
+     * Set locale.
+     * 
+     * @param string $locale
+     */
+    public static function setLocale($locale)
+    {
+        self::$locale = $locale;
+    }
+
+    /**
+     * Load a language file.
+     * 
+     * @param  string $name name of language file
+     * @param  string $code optional, language code
+     * @return array
+     */
+    public static function silentlyLoad($name, $code = null)
+    {
+        /** if there is no specified language, use the default one */
+        $code = $code ?: self::getLocale() ;
+
+        $content = [];
+
+        /** lang file */
+        $file = SMVC."app/language/$code/$name.php";
+
+        /** check if is readable */
+        if (is_readable($file)) {
+            /** require file */
+            $content = include($file);
+        }
+
+        return $content;
+    } 
 }

@@ -3,6 +3,7 @@
  * Sample layout
  */
 
+use Core\Language;
 use Helpers\Assets;
 use Helpers\Hooks;
 
@@ -10,7 +11,7 @@ use Helpers\Hooks;
 $hooks = Hooks::get();
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo LANGUAGE_CODE; ?>">
+<html lang="<?php echo Language::getLocale(); ?>">
 <head>
 
 	<!-- Site meta -->
