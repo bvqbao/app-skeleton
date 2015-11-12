@@ -4,13 +4,15 @@
  *
  * @author Bui Vo Quoc Bao - bvqbao@gmail.com
  * @version 2.2
- * @date Nov 10, 2015
+ * @date November 12, 2015
  */
 
 namespace Core;
 
 use Illuminate\Validation\Factory;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
+use Core\Language;
 
 /**
  * Simulate Laravel's Validator facade.
@@ -18,7 +20,7 @@ use Symfony\Component\Translation\Translator;
 class Validator
 {
 	/**
-	 * Store the validator instance.
+	 * Store the validator factory instance.
 	 * 
 	 * @var \Illuminate\Validation\Factory
 	 */
@@ -32,7 +34,16 @@ class Validator
 	protected static function getInstance()
 	{
 		if (! static::$instance) {
-			static::$instance = new Factory(new Translator('en_US'));
+            // Get the current language
+            $language = Language::getLocale();
+
+            // Setup the translator
+            $translator = new Translator($language);
+            $translator->addLoader('array_loader', new ArrayLoader());
+            $translator->addResource('array_loader', 
+                            Language::silentlyLoad('validation'), $language);
+
+			static::$instance = new Factory($translator);
 		}
 		return static::$instance;
 	}
