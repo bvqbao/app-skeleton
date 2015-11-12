@@ -6,7 +6,7 @@
  * @author Bui Vo Quoc Bao - bvqbao@gmail.com
  * @version 2.2
  * @date June 27, 2014
- * @date updated Sept 19, 2015
+ * @date updated November 12, 2015
  */
 
 namespace Core;
@@ -134,7 +134,7 @@ abstract class Model extends Eloquent
 	 * @param  array  $messages validation messages
 	 * @return \Illuminate\Validation\Validator
 	 */
-	protected function createValidator(array $rules, array $messages = []) 
+	protected function makeValidator(array $rules, array $messages = []) 
 	{
 		$validator = Validator::make($this->attributes, $rules, $messages);
 
@@ -177,7 +177,7 @@ abstract class Model extends Eloquent
 
 		$customMessages = (empty($customMessages)) ? static::$messages : $customMessages;
 
-		$validator = $this->createValidator($rules, $customMessages);
+		$validator = $this->makeValidator($rules, $customMessages);
 		if ($validator->passes()) {
 			return true;
 		}
