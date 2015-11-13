@@ -55,13 +55,6 @@ abstract class Model extends Eloquent
 	protected $errors;
 
 	/**
-	 * Indicate if the model should be timestamped.
-	 * 
-	 * @var boolean
-	 */
-	public $timestamps = false;
-
-	/**
 	 * Set the validation context.
 	 *
 	 * @param  string $context
@@ -124,11 +117,11 @@ abstract class Model extends Eloquent
 
 	/**
 	 * Stub method that can be extended by child classes.
-	 * Passes a validator object and allows for adding custom rules.
+	 * Passes a validator object and allows for other configurations.
 	 *
 	 * @param \Illuminate\Validation\Validator $validator
 	 */
-	protected static function addCustomRules($validator) {}	
+	protected static function configValidator($validator) {}	
 
 	/**
 	 * Create a validator for current attributes.
@@ -144,8 +137,8 @@ abstract class Model extends Eloquent
 		// Enable database-dependent validations (e.g. unique)
 		$validator->setPresenceVerifier(new DatabasePresenceVerifier(parent::$resolver));
 
-		// Add custom rules provided by child classes
-		static::addCustomRules($validator);
+		// Add specific configurations provided by child classes
+		static::configValidator($validator);
 
 		return $validator;	
 	}	
