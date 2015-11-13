@@ -55,7 +55,7 @@ abstract class Model extends Eloquent
 	protected $errors;
 
 	/**
-	 * Disable timestamps.
+	 * Indicate if the model should be timestamped.
 	 * 
 	 * @var boolean
 	 */
@@ -69,6 +69,9 @@ abstract class Model extends Eloquent
 	 */
 	public function withinContext($context)
 	{
+		if (! is_string($context)) {
+			throw new \InvalidArgumentException('The validation context must be a string.');
+		}
 		$this->context = trim($context);
 		return $this;
 	}
@@ -145,23 +148,6 @@ abstract class Model extends Eloquent
 		static::addCustomRules($validator);
 
 		return $validator;	
-	}
-
-	/**
-	 * Replace the placeholders in strings.
-	 * 
-	 * @param  string $placeholder 	the placeholder
-	 * @param  string $value		the placeholder value
-	 * @param  array  $strings 		the strings that contain placeholders
-	 * @return array 
-	 */
-	protected function replacePlaceholders($placeholder, $value, array $strings)
-	{
-        foreach ($strings as &$string) {
-            $string = str_replace($placeholder, $value, $string);
-        }		
-
-        return $strings;
 	}	
 
 	/**
@@ -171,9 +157,10 @@ abstract class Model extends Eloquent
 	 */
 	public function validate(array $customMessages = [])
 	{
-		$rules = $this->replacePlaceholders(':id', 
-			$this->attributes["{$this->primaryKey}"], 
-			$this->getRulesInContext());
+		$rules = $this->getRulesInContext();
+		foreach ($rules as &$rule) {
+			$rule = str_replace(':id', $this->attributes["{$this->primaryKey}"], $rule);
+		}
 
 		$customMessages = (empty($customMessages)) ? static::$messages : $customMessages;
 

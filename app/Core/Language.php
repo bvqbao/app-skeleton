@@ -153,12 +153,13 @@ class Language
     private static function tryToLoad($name, $code)
     {
         $code = $code ?: self::getLocale();
+        self::assertValidLocale($code);
 
         $file = SMVC."app/language/$code/$name.php";
         if (is_readable($file)) {
             return include($file);
         } else {
-            throw new \Exception(sprintf('File "%s" is not readable.', $file));
+            throw new \Exception(sprintf('Could not load language file "%s".', $file));
         }
     }
 }
