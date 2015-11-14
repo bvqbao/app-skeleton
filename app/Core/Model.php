@@ -136,7 +136,7 @@ abstract class Model extends Eloquent
 
 		$customMessages = (empty($customMessages)) ? static::$messages : $customMessages;
 
-		$validator = Validator::make($this->attributes, $rules, $messages);
+		$validator = Validator::make($this->attributes, $rules, $customMessages);
 		static::configValidator($validator);
 
 		if ($validator->passes()) {
