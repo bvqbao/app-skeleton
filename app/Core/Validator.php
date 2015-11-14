@@ -33,7 +33,7 @@ class Validator
 	 */
 	protected static function getInstance()
 	{
-		if (! static::$instance) {
+		if (! self::$instance) {
             // Get the current language
             $language = Language::getLocale();
 
@@ -43,9 +43,9 @@ class Validator
             $translator->addResource('array_loader', 
                             Language::silentlyLoad('validation'), $language);
 
-			static::$instance = new Factory($translator);
+			self::$instance = new Factory($translator);
 		}
-		return static::$instance;
+		return self::$instance;
 	}
 
     /**
@@ -57,7 +57,7 @@ class Validator
      */
     public static function __callStatic($method, $args)
     {
-        $instance = static::getInstance();
+        $instance = self::getInstance();
 
         switch (count($args)) {
             case 0:

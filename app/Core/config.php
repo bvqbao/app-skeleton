@@ -116,3 +116,12 @@ $capsule->addConnection([
 ]);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
+
+/**
+ * Enable database-dependent validations (e.g. unique)
+ */
+Core\Validator::setPresenceVerifier(
+	new Illuminate\Validation\DatabasePresenceVerifier(
+		$capsule->getDatabaseManager()
+	)
+);

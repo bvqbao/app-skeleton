@@ -12,7 +12,6 @@
 namespace Core;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Validation\DatabasePresenceVerifier;
 use Core\Validator;
 use Helpers\Arr;
 
@@ -121,27 +120,7 @@ abstract class Model extends Eloquent
 	 *
 	 * @param \Illuminate\Validation\Validator $validator
 	 */
-	protected static function configValidator($validator) {}	
-
-	/**
-	 * Create a validator for current attributes.
-	 * 
-	 * @param  array  $rules    rules used by the validator
-	 * @param  array  $messages validation messages
-	 * @return \Illuminate\Validation\Validator
-	 */
-	protected function makeValidator(array $rules, array $messages = []) 
-	{
-		$validator = Validator::make($this->attributes, $rules, $messages);
-
-		// Enable database-dependent validations (e.g. unique)
-		$validator->setPresenceVerifier(new DatabasePresenceVerifier(parent::$resolver));
-
-		// Add specific configurations provided by child classes
-		static::configValidator($validator);
-
-		return $validator;	
-	}	
+	protected static function configValidator($validator) {}
 
 	/**
 	 * Validate current attributes against rules.
@@ -157,7 +136,9 @@ abstract class Model extends Eloquent
 
 		$customMessages = (empty($customMessages)) ? static::$messages : $customMessages;
 
-		$validator = $this->makeValidator($rules, $customMessages);
+		$validator = Validator::make($this->attributes, $rules, $messages);
+		static::configValidator($validator);
+
 		if ($validator->passes()) {
 			return true;
 		}
