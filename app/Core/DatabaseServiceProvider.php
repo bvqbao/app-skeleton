@@ -24,7 +24,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
 	{
 		// Read database settings.
 		$settings = require SMVC.'app/config/database.php';
-		$default = Arr::get($settings, 'default', 'mysql');
+		$default = Arr::get($settings, 'default');
 		$connections = Arr::get($settings, 'connections');
 
 		// Setup database manager.
