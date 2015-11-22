@@ -155,17 +155,11 @@ class Session
     }
 
     /**
-     *
-     *
-      * @return string return the message inside div
-     */
-
-    /**
      * Display a one time message, then clear if from the session.
      *
      * @param  string $sessionName default session name
      *
-     * @return string
+     * @return string return the message inside div
      */
     public static function message($sessionName = 'success')
     {

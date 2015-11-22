@@ -3,16 +3,15 @@
  * Sample layout
  */
 
-use Core\Language;
-
+use Helpers\Facades\Lang;
 ?>
 
 <div class="page-header">
-	<h1><?php echo $data['title'] ?></h1>
+	<h1><?php echo $title; ?></h1>
 </div>
 
-<p><?php echo $data['welcome_message'] ?></p>
+<p><?php echo $welcomeMessage; ?></p>
 
 <a class="btn btn-md btn-success" href="<?php echo DIR;?>subpage">
-	<?php echo Language::show('open_subpage', 'welcome'); ?>
+	<?php echo Lang::get('welcome.open_subpage'); ?>
 </a>

@@ -4,16 +4,13 @@
     </IfModule>
 
 	RewriteEngine On
-	RewriteBase /
-
-    # Redirect trailing slashes
-    RewriteRule ^(.*)/$ $1 [R=301,L]
+	RewriteBase /slimvc/public/
 
     # Allow access to any files or directories
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
 
 	# Pass everything to the Front Controller
-	RewriteRule ^(.*)$ index.php?$1 [QSA,L]
+	RewriteRule ^(.*)$ index.php [QSA,L]
 
 </IfModule>

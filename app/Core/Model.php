@@ -1,18 +1,12 @@
 <?php
 /**
- * Model - the base model
- *
- * @author David Carr - dave@daveismyname.com
- * @author Bui Vo Quoc Bao - bvqbao@gmail.com
- * @version 2.2
- * @date June 27, 2014
- * @date updated November 12, 2015
+ * Model - the base model.
  */
 
 namespace Core;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Core\Validator;
+use Helpers\Facades\Validator;
 use Helpers\Arr;
 
 /**

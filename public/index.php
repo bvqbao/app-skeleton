@@ -1,54 +1,19 @@
 <?php
-/** 
- * SMVC specifed directory default is '../'
- */
+
+/** SMVC directory. */
 define('SMVC', realpath('../').DIRECTORY_SEPARATOR);
 
-/** load composer autoloader */
+/** Load autoloader. */
 require SMVC.'vendor/autoload.php';
 
-/*
- *---------------------------------------------------------------
- * APPLICATION ENVIRONMENT
- *---------------------------------------------------------------
- *
- * You can load different configurations depending on your
- * current environment. Setting the environment also influences
- * things like logging and error reporting.
- *
- * This can be set to anything, but default usage is:
- *
- *     development
- *     production
- *
- * NOTE: If you change these, also change the error_reporting() code below
- *
- */
-define('ENVIRONMENT', 'development');
+/** Create an application. */
+$app = new \Core\Application(new \Slim\Container([
+	// THIS SETTING SHOULB BE USED FOR DEVELOPMENT ONLY
+    'settings' => ['displayErrorDetails' => true]
+]));
 
-/*
- *---------------------------------------------------------------
- * ERROR REPORTING
- *---------------------------------------------------------------
- *
- * Different environments will require different levels of error reporting.
- * By default development will show errors but production will hide them.
- */
-if (defined('ENVIRONMENT')) {
-    switch (ENVIRONMENT) {
-        case 'development':
-            error_reporting(E_ALL);
-            break;
-        case 'production':
-            error_reporting(0);
-            break;
-        default:
-            exit('The application environment is not set correctly.');
-    }
-}
+/** Load defined routes. */
+require SMVC.'app/routes/welcome.php';
 
-/** load config */
-require SMVC.'app/Core/config.php';
-
-/** load routes */
-require SMVC.'app/Core/routes.php';
+/* Run the application. */
+$app->bootstrap()->run();

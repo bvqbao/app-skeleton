@@ -1,24 +1,26 @@
 {
-    "name": "simple-mvc-framework/framework",
+    "name": "quocbao/slimvc",
     "type": "project",
     "description": "Framework for PHP 5.5+",
-    "homepage": "https://github.com/simple-mvc-framework/framework",
     "license": "MIT",
     "authors": [
         {
-            "name": "David Carr",
-            "email": "dave@daveismyname.com",
-            "homepage": "http://daveismyname.com",
+            "name": "Bui Vo Quoc Bao",
+            "email": "bvqbao@gmail.com",
+            "homepage": "http://quocbao.name.vn",
             "role": "Developer"
         }
     ],
     "require": {
         "php": ">=5.5.9",
         "illuminate/database": "~5.1",
-        "illuminate/validation": "~5.1"
+        "illuminate/validation": "~5.1",
+        "illuminate/translation": "~5.1",
+        "slim/slim": "^3.0@RC"
     },
     "autoload": {
-        "psr-4": {"": "app/"}
-    },
-    "minimum-stability": "dev"
+        "psr-4": {
+            "": "app/"
+        }
+    }
 }
