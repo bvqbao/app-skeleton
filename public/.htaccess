@@ -4,7 +4,7 @@
     </IfModule>
 
 	RewriteEngine On
-	RewriteBase /slimvc/public/
+	RewriteBase /
 
     # Allow access to any files or directories
     RewriteCond %{REQUEST_FILENAME} !-d

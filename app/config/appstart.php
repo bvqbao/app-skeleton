@@ -1,7 +1,7 @@
 <?php
 
 /** Define the root-relative path. */
-define('DIR', '/slimvc/public/');
+define('DIR', '/');
 
 /** Set the default language. */
 define('DEFAULT_LOCALE', 'vi');
