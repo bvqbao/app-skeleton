@@ -1,6 +1,6 @@
 <?php
 
-/** Define the root-relative path. */
+/** The root-relative path to the public folder. */
 define('DIR', '/');
 
 /** Register autoloader. */
