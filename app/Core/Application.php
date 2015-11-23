@@ -32,7 +32,7 @@ class Application extends App
 		
 		$this->setBasePath($basePath);	
 
-		// Load all the config files and apply these configs
+		// Load all config files and apply these configs
 		// to the application.
 		$this->applyUserConfig();
 	}

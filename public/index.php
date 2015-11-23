@@ -18,5 +18,5 @@ $app = new \Core\Application(
 /** Load defined routes here. */
 require '../app/routes/welcome.php';
 
-/** Bootstrap and run the application. */
+/** Run the application. */
 $app->run();

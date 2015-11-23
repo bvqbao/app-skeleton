@@ -6,7 +6,11 @@ use Slim\Container as SlimContainer;
 
 class Container
 {
-	/** The global container instance used in the application. */
+	/** 
+	 * The global container instance used in the application.
+	 * 
+	 * @var \Slim\Container
+	 */
 	protected static $instance;
 
 	protected function __construct()
@@ -14,7 +18,11 @@ class Container
 
 	}
 
-	/** Create the global container instance. */
+	/** 
+	 * Create the global container instance.
+	 * 
+	 * @return \Slim\Container
+	 */
 	public static function getInstance()
 	{
 		if (! static::$instance) {
