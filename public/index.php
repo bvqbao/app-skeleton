@@ -3,17 +3,21 @@
 /** SMVC directory. */
 define('SMVC', realpath('../').DIRECTORY_SEPARATOR);
 
-/** Load autoloader. */
+/** Define the root-relative path. */
+define('DIR', '/');
+
+/** Register autoloader. */
 require SMVC.'vendor/autoload.php';
 
-/** Create an application. */
-$app = new \Core\Application(new \Slim\Container([
-	// THIS SETTING SHOULB BE USED FOR DEVELOPMENT ONLY
-    'settings' => ['displayErrorDetails' => true]
-]));
+/** Start sessions. */
+define('SESSION_PREFIX', '');
+\Helpers\Session::init();
 
-/** Load defined routes. */
+/** Create an application. */
+$app = new \Core\Application();
+
+/** Load defined routes here. */
 require SMVC.'app/routes/welcome.php';
 
-/* Run the application. */
+/** Bootstrap and run the application. */
 $app->bootstrap()->run();

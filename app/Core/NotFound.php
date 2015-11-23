@@ -19,7 +19,7 @@ class NotFound {
     {
         $data = ['title' => '404', 'error' => 'Oops! Page not found.'];
         $view = View::make('layouts::default', $data);
-        $view->nest('body', 'error.404', $data);    	
+        $view->nest('body', 'errors.404', $data);    	
 
         $response->getBody()->write($view);
         

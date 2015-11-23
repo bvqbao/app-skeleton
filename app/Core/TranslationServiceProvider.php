@@ -15,9 +15,12 @@ class TranslationServiceProvider implements ServiceProviderInterface
 		$this->registerLoader($pimple);
 		
 		$pimple['translator'] = function() use ($pimple) {
-		    $loader = $pimple['translation.loader'];
-		    $translator = new Translator($loader, DEFAULT_LOCALE);
-		    $translator->setFallback('en');
+			$config = $pimple['config'];
+
+		    $translator = new Translator($pimple['translation.loader'], 
+		    	$config['app.locale']);
+
+		    $translator->setFallback($config['app.fallback_locale']);
 
 		    return $translator;    
 		};		

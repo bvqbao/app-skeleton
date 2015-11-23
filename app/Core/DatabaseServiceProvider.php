@@ -5,7 +5,6 @@ namespace Core;
 use Illuminate\Database\Capsule\Manager;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
-use Helpers\Arr;
 
 class DatabaseServiceProvider implements ServiceProviderInterface
 {
@@ -13,19 +12,19 @@ class DatabaseServiceProvider implements ServiceProviderInterface
 	{
 		// We need to boot Eloquent before registering it 
 		// into the container.
-		$capsule = $this->bootEloquent();
+		$capsule = $this->bootEloquent($pimple);
 
 		$pimple['db'] = function() use ($capsule) {			
 			return $capsule->getDatabaseManager();
 		};		
 	}
 
-	protected function bootEloquent()
+	protected function bootEloquent(Container $pimple)
 	{
 		// Read database settings.
-		$settings = require SMVC.'app/config/database.php';
-		$default = Arr::get($settings, 'default');
-		$connections = Arr::get($settings, 'connections');
+		$config = $pimple['config'];
+		$default = $config['database.default'];
+		$connections = $config['database.connections'];
 
 		// Setup database manager.
 		$capsule = new Manager();

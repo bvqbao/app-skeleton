@@ -21,6 +21,9 @@
     "autoload": {
         "psr-4": {
             "": "app/"
-        }
+        },
+        "files": [
+            "app/Helpers/global.php"
+        ]        
     }
 }
