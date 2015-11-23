@@ -22,9 +22,8 @@ class DatabaseServiceProvider implements ServiceProviderInterface
 	protected function bootEloquent(Container $pimple)
 	{
 		// Read database settings.
-		$config = $pimple['config'];
-		$default = $config['database.default'];
-		$connections = $config['database.connections'];
+		$default = $pimple['config']['database.default'];
+		$connections = $pimple['config']['database.connections'];
 
 		// Setup database manager.
 		$capsule = new Manager();
