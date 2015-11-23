@@ -28,8 +28,8 @@ class TranslationServiceProvider implements ServiceProviderInterface
 
 	protected function registerLoader(Container $pimple)
 	{
-		$pimple['translation.loader'] = function() {
-			return new FileLoader(new Filesystem(), SMVC.'app/lang');
+		$pimple['translation.loader'] = function() use ($pimple) {
+			return new FileLoader(new Filesystem(), $pimple['path.lang']);
 		};
 	}
 }

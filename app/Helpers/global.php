@@ -1,5 +1,71 @@
 <?php
 
+use Core\Container;
+
+if (! function_exists('container')) {
+    /**
+     * Get the global container instance.
+     *
+     * @return \Slim\Container
+     */
+    function container()
+    {
+        return Container::getInstance();
+    }
+}
+
+if (! function_exists('app_path')) {
+    /**
+     * Get the path to the application folder.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function app_path($path = '')
+    {
+        return container()['path'].$path;
+    }
+}
+
+if (! function_exists('base_path')) {
+    /**
+     * Get the path to the base of the install.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function base_path($path = '')
+    {
+        return container()['path.base'].$path;
+    }
+}
+
+if (! function_exists('config_path')) {
+    /**
+     * Get the configuration path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function config_path($path = '')
+    {
+        return container()['path.config'].$path;
+    }
+}
+
+if (! function_exists('public_path')) {
+    /**
+     * Get the path to the public folder.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function public_path($path = '')
+    {
+        return container()['path.public'].$path;
+    }
+}
+
 if (! function_exists('html_errors')) {
     /**
      * Put errors inside divs.

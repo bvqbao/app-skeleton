@@ -3,6 +3,7 @@
 namespace Core;
 
 use Core\Configuration;
+use Core\Container;
 use Helpers\Facades\Facade;
 use Slim\App;
 
@@ -13,48 +14,94 @@ class Application extends App
 	 * 
 	 * @var string
 	 */
-	protected $basePath = SMVC;
+	protected $basePath;
 
 	/**
 	 * Create a new application.
-	 * 
-	 * @param ContainerInterface|array $container
+	 *
+	 * @param string $basePath
 	 */
-	public function __construct($container = [])
+	public function __construct($basePath = null)
 	{
-		// Load all the config files.
-		$items = $this->loadConfigurationFiles();
-		$config = new Configuration($items);
+		if (! $basePath) {
+			throw new \InvalidArgumentException(
+				"The application path has not been set.");
+		}
 
-		// Apply config for the application.
-		$settings = isset($container['settings']) ? $container['settings'] : [];
-		$settings = array_merge($settings, ['displayErrorDetails' => $config['app.debug']]);
-		$container['settings'] = $settings;
+		parent::__construct(Container::getInstance());
+		
+		$this->setBasePath($basePath);	
 
-		parent::__construct($container);
-
-		// Store the config instance for latter use.
-		$container = $this->getContainer();		
-		$container['config'] = function() use ($config) {
-			return $config;
-		};
-
-		date_default_timezone_set($config['app.timezone']);
-
-		mb_internal_encoding('UTF-8');
+		// Load all the config files and apply these configs
+		// to the application.
+		$this->applyUserConfig();
 	}
 
-	/**
-	 * Bootstrap the application.
-	 * 
-	 * @return \Core\Application
-	 */
-	public function bootstrap()
-	{
-		$this->registerServices();
-		$this->registerFacades();
+    /**
+     * Apply user configurations to the application.
+     */
+    protected function applyUserConfig()
+    {
+		$config = $this->getAppConfig();
 
-		return $this;
+		$this->displayErrorDetails($config['app.debug']);
+
+		date_default_timezone_set($config['app.timezone']);
+		mb_internal_encoding('UTF-8');    
+
+		$this->registerServices();
+    }
+
+    /**
+     * Get the configurations for the application.
+     * 
+     * @return \Core\Configuration
+     */
+    protected function getAppConfig()
+    {
+		$container = $this->getContainer();
+
+		$config = new Configuration($this->loadConfigFiles());
+
+		$container['config'] = function() use ($config) {
+			return $config;
+		};  
+		
+		return $config;
+    }
+
+    /**
+     * Load the configuration files.
+     * 
+     * @return  array
+     */
+    protected function loadConfigFiles()
+    {
+    	$items = [];
+
+        $files = glob($this->configPath().'*.php');
+    	foreach($files as $file) {
+            $name = basename($file, '.php');
+            $items[$name] = require $file;
+    	}
+
+    	return $items;
+    }	
+
+	/**
+	 * Should error details get displayed?
+	 * 
+	 * @param  boolean $flag
+	 */
+	protected function displayErrorDetails($flag = false)
+	{
+		$container = $this->getContainer();
+
+		$container->extend('settings', function($settings, $container) use ($flag) {
+			$settings['displayErrorDetails'] = $flag;
+
+			return $settings;
+		});		
 	}
 
 	/**
@@ -68,54 +115,87 @@ class Application extends App
 		foreach($services as $service) {
 			$container->register(new $service);
 		}
+
+		// Register facades which are shortcuts 
+		// for accessing registered services.
+		Facade::setContainer($container);
 	}	
 
 	/**
-	 * Register facades which are shortcuts for accessing
-	 * registered services.
+	 * Set the path to the framework installation.
+	 *
+	 * @return \Core\Application
 	 */
-	protected function registerFacades()
+	public function setBasePath($basePath)
 	{
-		Facade::setContainer($this->getContainer());
+		$this->basePath = $basePath;
+
+		$this->bindPathsInContainer();
+
+		return $this;
+	}	
+
+    /**
+     * Bind all of the application paths in the container.
+     *
+     * @return void
+     */
+    protected function bindPathsInContainer()
+    {
+    	$container = $this->getContainer();
+
+        $container['path'] = $this->path();
+
+        foreach (['base', 'config', 'lang', 'public'] as $path) {
+            $container['path.'.$path] = $this->{$path.'Path'}();
+        }
+    }	
+
+	/**
+	 * Get the path to the framework installation.
+	 */
+	public function basePath($path = '')
+	{
+		return $this->basePath.$path;
 	}
 
 	/**
-	 * Get/Set the base path of the application.
-	 */
-	public function basePath($basePath = null)
-	{
-		if (is_string($basePath)) {
-			$this->basePath = $basePath;
-		}
-
-		return $this->basePath;
-	}
-
-	/**
-	 * Get the config path of the application.
+	 * Get the path to the application "app" directory.
 	 * 
 	 * @return string
 	 */
-	public function configPath()
+	protected function path()
 	{
-		return $this->basePath().'app/config/';
+		return $this->basePath.'app/';
 	}
 
+	/**
+	 * Get the path to the application configuration files.
+	 * 
+	 * @return string
+	 */
+	protected function configPath()
+	{
+		return $this->basePath.'app/config/';
+	}
+
+	/**
+	 * Get the path to the public / web directory.
+	 * 
+	 * @return string
+	 */
+	protected function publicPath()
+	{
+		return $this->basePath.'public/';
+	}	
+
     /**
-     * Load the configuration files.
-     * 
-     * @return  array
+     * Get the path to the language files.
+     *
+     * @return string
      */
-    protected function loadConfigurationFiles()
+    protected function langPath()
     {
-    	$items = [];
-
-        $files = glob($this->configPath().'*.php');
-    	foreach($files as $file) {
-            $name = basename($file, '.php');
-            $items[$name] = require $file;
-    	}
-
-    	return $items;
+        return $this->basePath.'app/lang/';
     }	
 }

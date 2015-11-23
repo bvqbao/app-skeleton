@@ -152,7 +152,7 @@ class View
      */
     protected static function findViewInPath($name, $path)
     {
-        $viewPath = SMVC.$path.str_replace('.', '/', $name).'.php';
+        $viewPath = base_path($path.str_replace('.', '/', $name).'.php');
         if (! file_exists($viewPath)) {
             throw new \InvalidArgumentException("View [$name] not found.");
         }

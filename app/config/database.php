@@ -24,7 +24,7 @@ return [
 
         'sqlite' => [
             'driver'    => 'sqlite',
-            'database'  => SMVC.'database.sqlite',
+            'database'  => base_path('database.sqlite'),
             'prefix'    => '',
         ],
 
