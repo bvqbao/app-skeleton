@@ -23,7 +23,7 @@
             "": "app/"
         },
         "files": [
-            "app/Helpers/global.php"
+            "app/Support/helpers.php"
         ]        
     }
 }
