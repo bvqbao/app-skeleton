@@ -5,7 +5,7 @@
 
 namespace Core;
 
-use Helpers\Arr;
+use Support\Arr;
 
 /**
  * View class to load layout and views files.

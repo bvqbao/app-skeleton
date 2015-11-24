@@ -3,7 +3,7 @@
 namespace Core;
 
 use ArrayAccess;
-use Helpers\Arr;
+use Support\Arr;
 
 class Configuration implements ArrayAccess
 {

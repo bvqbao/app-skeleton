@@ -8,7 +8,7 @@ require '../vendor/autoload.php';
 
 /** Start sessions. */
 define('SESSION_PREFIX', '');
-\Helpers\Session::init();
+\Support\Session::init();
 
 /** Create an application. */
 $app = new \Core\Application(

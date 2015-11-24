@@ -7,7 +7,7 @@
  * @date updated Sept 19, 2015
  */
 
-namespace Helpers;
+namespace Support;
 
 /**
  * Collection of array methods.

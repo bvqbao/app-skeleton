@@ -3,7 +3,7 @@
  * Lang - The translation service.
  */
 
-namespace Helpers\Facades;
+namespace Support\Facades;
 
 /**
  * Simulate Laravel's Lang facade.

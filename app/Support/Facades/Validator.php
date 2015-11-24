@@ -3,7 +3,7 @@
  * Validator - The validation service.
  */
 
-namespace Helpers\Facades;
+namespace Support\Facades;
 
 /**
  * Simulate Laravel's Validator facade.

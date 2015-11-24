@@ -1,6 +1,6 @@
 <?php
 
-use Helpers\Facades\Lang;
+use Support\Facades\Lang;
 ?>
 
 <div class="page-header">

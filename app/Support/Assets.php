@@ -8,7 +8,7 @@
  * @date updated Sept 19, 2015
  */
 
-namespace Helpers;
+namespace Support;
 
 /**
  * Collect and output css and js link tags.

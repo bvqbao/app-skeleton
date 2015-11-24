@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers\Facades;
+namespace Support\Facades;
 
 /**
  * The base facade.

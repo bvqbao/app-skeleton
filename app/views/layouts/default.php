@@ -3,8 +3,8 @@
  * Sample layout
  */
 
-use Helpers\Assets;
-use Helpers\Facades\Lang;
+use Support\Assets;
+use Support\Facades\Lang;
 ?>
 
 <!DOCTYPE html>

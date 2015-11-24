@@ -4,7 +4,7 @@ namespace Core;
 
 use Core\Configuration;
 use Core\Container;
-use Helpers\Facades\Facade;
+use Support\Facades\Facade;
 use Slim\App;
 
 class Application extends App

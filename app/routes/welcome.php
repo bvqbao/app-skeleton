@@ -4,7 +4,7 @@
  */
 
 use Core\View;
-use Helpers\Facades\Lang;
+use Support\Facades\Lang;
 
 $app->get('/', function($request, $response, $args) {
     $data = [
