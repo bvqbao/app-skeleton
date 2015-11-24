@@ -146,7 +146,7 @@ class Application extends App
 
         $container['path'] = $this->path();
 
-        foreach (['base', 'config', 'lang', 'public'] as $path) {
+        foreach (['base', 'config', 'lang'] as $path) {
             $container['path.'.$path] = $this->{$path.'Path'}();
         }
     }	
@@ -156,7 +156,7 @@ class Application extends App
 	 */
 	public function basePath($path = '')
 	{
-		return $this->basePath.$path;
+		return $this->basePath.ltrim($path, '/');
 	}
 
 	/**
@@ -178,16 +178,6 @@ class Application extends App
 	{
 		return $this->basePath.'app/config/';
 	}
-
-	/**
-	 * Get the path to the public / web directory.
-	 * 
-	 * @return string
-	 */
-	protected function publicPath()
-	{
-		return $this->basePath.'public/';
-	}	
 
     /**
      * Get the path to the language files.

@@ -23,7 +23,7 @@ if (! function_exists('app_path')) {
      */
     function app_path($path = '')
     {
-        return container()['path'].$path;
+        return container()['path'].ltrim($path, '/');
     }
 }
 
@@ -36,7 +36,7 @@ if (! function_exists('base_path')) {
      */
     function base_path($path = '')
     {
-        return container()['path.base'].$path;
+        return container()['path.base'].ltrim($path, '/');
     }
 }
 
@@ -49,20 +49,7 @@ if (! function_exists('config_path')) {
      */
     function config_path($path = '')
     {
-        return container()['path.config'].$path;
-    }
-}
-
-if (! function_exists('public_path')) {
-    /**
-     * Get the path to the public folder.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    function public_path($path = '')
-    {
-        return container()['path.public'].$path;
+        return container()['path.config'].ltrim($path, '/');
     }
 }
 
@@ -98,7 +85,7 @@ if (! function_exists('relative_url')) {
      */
     function relative_url($path = '')
     {
-    	return DIR.ltrim($path);
+    	return DIR.ltrim($path, '/');
     }
 }
 
