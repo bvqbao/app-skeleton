@@ -7,6 +7,9 @@ use Core\Container;
 use Support\Facades\Facade;
 use Slim\App;
 
+/**
+ * The main application.
+ */
 class Application extends App
 {
 	/**

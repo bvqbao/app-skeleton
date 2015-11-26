@@ -8,6 +8,9 @@ use Illuminate\Translation\Translator;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
+/**
+ * Register a translation service into the container.
+ */
 class TranslationServiceProvider implements ServiceProviderInterface
 {
 	public function register(Container $pimple)

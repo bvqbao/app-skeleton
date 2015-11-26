@@ -4,6 +4,10 @@ namespace Core;
 
 use Slim\Container as SlimContainer;
 
+/**
+ * This class serves as a fake container. Its main purpose is 
+ * to create a global Slim container.
+ */
 class Container
 {
 	/** 
@@ -13,6 +17,9 @@ class Container
 	 */
 	protected static $instance;
 
+	/**
+	 * Prevent others from instanciating this class.
+	 */
 	protected function __construct()
 	{
 

@@ -7,6 +7,9 @@ use Illuminate\Validation\Factory;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
+/**
+ * Register a validation service into the container.
+ */
 class ValidationServiceProvider implements ServiceProviderInterface
 {
 	public function register(Container $pimple)

@@ -6,6 +6,9 @@ use Illuminate\Database\Capsule\Manager;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
+/**
+ * Register Eloquent into the container.
+ */
 class DatabaseServiceProvider implements ServiceProviderInterface
 {
 	public function register(Container $pimple)

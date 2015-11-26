@@ -6,6 +6,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Core\View;
 
+/**
+ * NotFound handler.
+ */
 class NotFound {
     /**
      * Invoke not found handler

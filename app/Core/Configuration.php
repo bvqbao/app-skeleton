@@ -5,6 +5,9 @@ namespace Core;
 use ArrayAccess;
 use Support\Arr;
 
+/**
+ * The configuration repository.
+ */
 class Configuration implements ArrayAccess
 {
 	/**
@@ -15,9 +18,9 @@ class Configuration implements ArrayAccess
     protected $items = [];
 
     /**
-     * Create a new loader.
+     * Create a new configuration instance.
      * 
-     * @param \Core\Application $app
+     * @param array $items
      */
     public function __construct(array $items = [])
     {
