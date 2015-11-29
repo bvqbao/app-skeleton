@@ -1,12 +1,7 @@
 <?php
-/**
- * Sample layout
- */
-
 use Support\Assets;
 use Support\Facades\Lang;
 ?>
-
 <!DOCTYPE html>
 <html lang="<?php echo Lang::getLocale(); ?>">
 <head>

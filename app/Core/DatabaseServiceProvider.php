@@ -11,22 +11,33 @@ use Pimple\Container;
  */
 class DatabaseServiceProvider implements ServiceProviderInterface
 {
-	public function register(Container $pimple)
+	/**
+	 * Register services into the given container.
+	 * 
+	 * @param  \Pimple\Container $container
+	 */		
+	public function register(Container $container)
 	{
 		// We need to boot Eloquent before registering it 
 		// into the container.
-		$capsule = $this->bootEloquent($pimple);
+		$capsule = $this->bootEloquent($container);
 
-		$pimple['db'] = function() use ($capsule) {			
+		$container['db'] = function() use ($capsule) {			
 			return $capsule->getDatabaseManager();
 		};		
 	}
 
-	protected function bootEloquent(Container $pimple)
+	/**
+	 * Setup and boot Eloquent.
+	 * 
+	 * @param  Container $container
+	 * @return \Illuminate\Database\Capsule\Manager
+	 */
+	protected function bootEloquent(Container $container)
 	{
 		// Read database settings.
-		$default = $pimple['config']['database.default'];
-		$connections = $pimple['config']['database.connections'];
+		$default = $container['config']['database.default'];
+		$connections = $container['config']['database.connections'];
 
 		// Setup database manager.
 		$capsule = new Manager();

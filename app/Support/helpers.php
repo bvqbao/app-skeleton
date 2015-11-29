@@ -2,18 +2,6 @@
 
 use Core\Container;
 
-if (! function_exists('container')) {
-    /**
-     * Get the global container instance.
-     *
-     * @return \Slim\Container
-     */
-    function container()
-    {
-        return Container::getInstance();
-    }
-}
-
 if (! function_exists('app_path')) {
     /**
      * Get the path to the application folder.
@@ -23,7 +11,7 @@ if (! function_exists('app_path')) {
      */
     function app_path($path = '')
     {
-        return container()['path'].ltrim($path, '/');
+        return Container::getInstance()['path'].ltrim($path, '/');
     }
 }
 
@@ -36,7 +24,7 @@ if (! function_exists('base_path')) {
      */
     function base_path($path = '')
     {
-        return container()['path.base'].ltrim($path, '/');
+        return Container::getInstance()['path.base'].ltrim($path, '/');
     }
 }
 
@@ -49,7 +37,7 @@ if (! function_exists('config_path')) {
      */
     function config_path($path = '')
     {
-        return container()['path.config'].ltrim($path, '/');
+        return Container::getInstance()['path.config'].ltrim($path, '/');
     }
 }
 

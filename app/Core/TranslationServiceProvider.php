@@ -13,14 +13,19 @@ use Pimple\Container;
  */
 class TranslationServiceProvider implements ServiceProviderInterface
 {
-	public function register(Container $pimple)
+	/**
+	 * Register services into the given container.
+	 * 
+	 * @param  \Pimple\Container $container
+	 */	
+	public function register(Container $container)
 	{
-		$this->registerLoader($pimple);
+		$this->registerLoader($container);
 		
-		$pimple['translator'] = function() use ($pimple) {
-			$config = $pimple['config'];
+		$container['translator'] = function() use ($container) {
+			$config = $container['config'];
 
-		    $translator = new Translator($pimple['translation.loader'], 
+		    $translator = new Translator($container['translation.loader'], 
 		    	$config['app.locale']);
 
 		    $translator->setFallback($config['app.fallback_locale']);
@@ -29,10 +34,15 @@ class TranslationServiceProvider implements ServiceProviderInterface
 		};		
 	}
 
-	protected function registerLoader(Container $pimple)
+	/**
+	 * Register a language file loader used by the translation service.
+	 * 
+	 * @param  \Pimple\Container $container
+	 */
+	protected function registerLoader(Container $container)
 	{
-		$pimple['translation.loader'] = function() use ($pimple) {
-			return new FileLoader(new Filesystem(), $pimple['path.lang']);
+		$container['translation.loader'] = function() use ($container) {
+			return new FileLoader(new Filesystem(), $container['path.lang']);
 		};
 	}
 }

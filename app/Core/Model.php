@@ -1,7 +1,4 @@
 <?php
-/**
- * Model - the base model.
- */
 
 namespace Core;
 

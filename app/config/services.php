@@ -10,8 +10,8 @@ return [
     | Each service class must implement the \Pimple\ServiceProviderInterface.
     |
     */
+    \Core\Handlers\HandlerServiceProvider::class,
 	\Core\DatabaseServiceProvider::class,
-	\Core\HandlerServiceProvider::class,
 	\Core\TranslationServiceProvider::class,
-	\Core\ValidationServiceProvider::class,
+	\Core\ValidationServiceProvider::class
 ];

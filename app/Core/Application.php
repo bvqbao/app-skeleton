@@ -31,8 +31,10 @@ class Application extends App
 				"The application path has not been set.");
 		}
 
+		// Create an application with default services.
 		parent::__construct(Container::getInstance());
 		
+		// Setup paths.
 		$this->setBasePath($basePath);	
 
 		// Load all config files and apply these configs
@@ -47,8 +49,6 @@ class Application extends App
     {
 		$config = $this->getAppConfig();
 
-		$this->displayErrorDetails($config['app.debug']);
-
 		date_default_timezone_set($config['app.timezone']);
 		mb_internal_encoding('UTF-8');    
 
@@ -62,10 +62,14 @@ class Application extends App
      */
     protected function getAppConfig()
     {
-		$container = $this->getContainer();
-
 		$config = new Configuration($this->loadConfigFiles());
 
+		// Register the configuration instance for later use.
+		// Note that Slim framework already used a service key named 'settings' for 
+		// accessing the framework settings. Here, we will use a separate key for 
+		// the application configurations. If you want to reuse the service key,
+		// you should merge the framework settings with the application configurations.
+		$container = $this->getContainer();
 		$container['config'] = function() use ($config) {
 			return $config;
 		};  
@@ -89,23 +93,7 @@ class Application extends App
     	}
 
     	return $items;
-    }	
-
-	/**
-	 * Should error details get displayed?
-	 * 
-	 * @param  boolean $flag
-	 */
-	protected function displayErrorDetails($flag = false)
-	{
-		$container = $this->getContainer();
-
-		$container->extend('settings', function($settings, $container) use ($flag) {
-			$settings['displayErrorDetails'] = $flag;
-
-			return $settings;
-		});		
-	}
+    }
 
 	/**
 	 * Register the specified services.

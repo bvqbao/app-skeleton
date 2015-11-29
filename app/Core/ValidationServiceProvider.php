@@ -12,25 +12,35 @@ use Pimple\Container;
  */
 class ValidationServiceProvider implements ServiceProviderInterface
 {
-	public function register(Container $pimple)
+	/**
+	 * Register services into the given container.
+	 * 
+	 * @param  \Pimple\Container $container
+	 */	
+	public function register(Container $container)
 	{
-		$this->registerPresenceVerifier($pimple);
+		$this->registerPresenceVerifier($container);
 
-		$pimple['validator'] = function() use ($pimple) {
-			$validator = new Factory($pimple['translator']);	
+		$container['validator'] = function() use ($container) {
+			$validator = new Factory($container['translator']);	
 					
-			if(isset($pimple['validation.presence'])) {
-				$validator->setPresenceVerifier($pimple['validation.presence']);	
+			if(isset($container['validation.presence'])) {
+				$validator->setPresenceVerifier($container['validation.presence']);	
 			}
 
 		    return $validator;
 		};	
 	}	
 
-    protected function registerPresenceVerifier(Container $pimple)
+	/**
+	 * Register a presence verifier used by the validation service.
+	 * 
+	 * @param  \Pimple\Container $container
+	 */	
+    protected function registerPresenceVerifier(Container $container)
     {
-        $pimple['validation.presence'] = function() use ($pimple) {
-            return new DatabasePresenceVerifier($pimple['db']);
+        $container['validation.presence'] = function() use ($container) {
+            return new DatabasePresenceVerifier($container['db']);
         };
     }	
 }
