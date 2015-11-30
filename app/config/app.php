@@ -54,4 +54,23 @@ return [
    
 	'timezone' => 'Asia/Ho_Chi_Minh',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Autoloaded Service Providers
+    |--------------------------------------------------------------------------
+    |
+    | The service providers listed here will be automatically loaded on the
+    | request to your application. Feel free to add your own services to
+    | this array to grant expanded functionality to your applications.
+    |
+    | Each service provider must implement the \Pimple\ServiceProviderInterface.
+    |
+    */
+
+    'providers' => [
+        Core\Handlers\HandlerServiceProvider::class,
+        Core\Providers\DatabaseServiceProvider::class,
+        Core\Providers\TranslationServiceProvider::class,
+        Core\Providers\ValidationServiceProvider::class,
+    ],
 ];

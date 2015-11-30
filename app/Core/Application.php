@@ -104,7 +104,7 @@ class Application extends App
 	{
 		$container = $this->getContainer();
 
-		$services = $container['config']['services'];
+		$services = $container['config']['app.providers'];
 		foreach($services as $service) {
 			$container->register(new $service);
 		}
