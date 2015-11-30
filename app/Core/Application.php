@@ -39,15 +39,13 @@ class Application extends App
 		
 		$this->setBasePath($basePath);	
 
-		// Load all config files and apply these configs
-		// to the application.
-		$this->applyUserConfig();
+		$this->bootstrap();
 	}
 
     /**
-     * Apply user configurations to the application.
+     * Bootstrap the application.
      */
-    protected function applyUserConfig()
+    protected function bootstrap()
     {
 		$config = $this->getAppConfig();
 
@@ -60,7 +58,7 @@ class Application extends App
     /**
      * Get the configurations for the application.
      * 
-     * @return \Core\Configuration
+     * @return \Core\ConfigAccess
      */
     protected function getAppConfig()
     {

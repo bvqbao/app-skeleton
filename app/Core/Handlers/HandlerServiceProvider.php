@@ -15,7 +15,7 @@ use Pimple\Container;
 class HandlerServiceProvider implements ServiceProviderInterface
 {
 	/**
-	 * Register services into the given container.
+	 * Register any handlers for the application.
 	 * 
 	 * @param  \Pimple\Container $container
 	 */

@@ -14,7 +14,7 @@ use Pimple\Container;
 class TranslationServiceProvider implements ServiceProviderInterface
 {
 	/**
-	 * Register services into the given container.
+	 * Register any translation services.
 	 * 
 	 * @param  \Pimple\Container $container
 	 */	

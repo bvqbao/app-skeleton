@@ -3,8 +3,8 @@
 namespace Core;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Support\Facades\Validator;
 use Support\Arr;
+use Support\Facades\Validator;
 
 /**
  * Base model class all other models will extend from this base.

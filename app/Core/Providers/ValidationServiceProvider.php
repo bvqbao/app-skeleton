@@ -14,7 +14,7 @@ use Pimple\Container;
 class ValidationServiceProvider implements ServiceProviderInterface
 {
 	/**
-	 * Register services into the given container.
+	 * Register any validation services.
 	 * 
 	 * @param  \Pimple\Container $container
 	 */	

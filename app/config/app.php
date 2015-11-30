@@ -72,5 +72,6 @@ return [
         Core\Providers\DatabaseServiceProvider::class,
         Core\Providers\TranslationServiceProvider::class,
         Core\Providers\ValidationServiceProvider::class,
+        Core\Providers\AppServiceProvider::class,
     ],
 ];

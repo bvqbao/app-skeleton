@@ -12,7 +12,7 @@ use Pimple\Container;
 class DatabaseServiceProvider implements ServiceProviderInterface
 {
 	/**
-	 * Register services into the given container.
+	 * Register any database services.
 	 * 
 	 * @param  \Pimple\Container $container
 	 */		
