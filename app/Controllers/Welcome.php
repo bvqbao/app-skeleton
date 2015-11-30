@@ -4,7 +4,6 @@ namespace Controllers;
 
 use Core\Controller;
 use Core\View;
-use Interop\Container\ContainerInterface;
 
 class Welcome extends Controller
 {
