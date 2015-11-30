@@ -2,6 +2,23 @@
 
 use Core\Container;
 
+if (! function_exists('container')) {
+    /**
+     * Get the available container instance.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    function container($key = null)
+    {
+        if (is_null($key)) {
+            return Container::getInstance();
+        }
+
+        return Container::getInstance()->get($key);
+    }
+}
+
 if (! function_exists('app_path')) {
     /**
      * Get the path to the application folder.
@@ -11,7 +28,7 @@ if (! function_exists('app_path')) {
      */
     function app_path($path = '')
     {
-        return Container::getInstance()->get('path').ltrim($path, '/');
+        return container('path').ltrim($path, '/');
     }
 }
 
@@ -24,7 +41,7 @@ if (! function_exists('base_path')) {
      */
     function base_path($path = '')
     {
-        return Container::getInstance()->get('path.base').ltrim($path, '/');
+        return container('path.base').ltrim($path, '/');
     }
 }
 
@@ -37,7 +54,7 @@ if (! function_exists('config_path')) {
      */
     function config_path($path = '')
     {
-        return Container::getInstance()->get('path.config').ltrim($path, '/');
+        return container('path.config').ltrim($path, '/');
     }
 }
 
