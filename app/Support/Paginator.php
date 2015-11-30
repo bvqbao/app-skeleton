@@ -1,11 +1,4 @@
 <?php
-/**
- * PHP Pagination Class
- *
- * @author David Carr - dave@daveismyname.com
- * @version 2.2
- * @date updated Sept 19, 2015
- */
 
 namespace Support;
 
@@ -115,19 +108,7 @@ class Paginator
     }
 
     /**
-     * getLimit
-     *
-     * Returns the limit for the data source, calling the getStart method and passing in the number of items perp page.
-     *
-     * @return string
-     */
-    public function getLimit()
-    {
-        return "LIMIT " . $this->getStart() . ", $this->perPage";
-    }
-
-    /**
-     * getLimit2 and getPerPage are used together
+     * getLimit and getPerPage are used together
      * when using the Eloquent Query Builder
      * for the skip and take parameters.
      *
@@ -136,7 +117,7 @@ class Paginator
      *
      * Example in controller method calling model method:
      *
-     * $data['pets'] = $this->pet->getPets($pages->getLimit2(), $pages->getPerPage(), $petSearch);
+     * $data['pets'] = $this->pet->getPets($pages->getLimit(), $pages->getPerPage(), $petSearch);
      *
      * Example model method using Eloquent Query Builder:
      *
@@ -150,11 +131,9 @@ class Paginator
      *                     ->skip($offset)->take($rowsPerPage)->get();
      * }
      *
-     * Also see the file in the helpers folder page_eloq.md for more help.
-     *
      * @var numeric
      */
-    public function getLimit2()
+    public function getLimit()
     {
         return $this->getStart();
     }

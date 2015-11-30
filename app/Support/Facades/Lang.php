@@ -1,7 +1,4 @@
 <?php
-/**
- * Lang - The translation service.
- */
 
 namespace Support\Facades;
 

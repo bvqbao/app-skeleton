@@ -1,12 +1,4 @@
 <?php
-/**
- * Assets static helper
- *
- * @author volter9
- * @author QsmaPL
- * @date 27th November, 2014
- * @date updated Sept 19, 2015
- */
 
 namespace Support;
 

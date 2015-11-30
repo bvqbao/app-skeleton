@@ -1,11 +1,4 @@
 <?php
-/**
- * Array Helper Class
- *
- * @author Benjamin von Minden | http://pandory.de
- * @date   August 1, 2015
- * @date updated Sept 19, 2015
- */
 
 namespace Support;
 

@@ -7,7 +7,7 @@ define('DIR', '/');
 require '../vendor/autoload.php';
 
 /** Start sessions. */
-define('SESSION_PREFIX', '');
+define('SESSION_PREFIX', 'SLIMVC_');
 \Support\Session::init();
 
 /** Create an application. */

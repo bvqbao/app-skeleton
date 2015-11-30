@@ -23,6 +23,7 @@ class Application extends App
 	 * Create a new application.
 	 *
 	 * @param string $basePath
+	 * @param array|\Interop\Container\ContainerInterface $container
 	 */
 	public function __construct($basePath, $container = [])
 	{

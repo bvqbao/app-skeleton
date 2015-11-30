@@ -1,7 +1,4 @@
 <?php
-/**
- * Validator - The validation service.
- */
 
 namespace Support\Facades;
 
