@@ -1,8 +1,13 @@
 <?php
 /**
- * Routes - all standard routes are defined here.
- * We can route an URL to a Closure or to a controller method (class:method).
+ * We can use a Closure or a controller method (class:method) to handle a route.
  */
+
+/*
+|--------------------------------------------------------------------------
+| Welcome Pages
+|--------------------------------------------------------------------------
+*/
 
 $app->get('/', 'Controllers\Welcome:welcome');
 $app->get('/subpage', 'Controllers\Welcome:subpage');

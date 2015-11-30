@@ -39,8 +39,10 @@ class ValidationServiceProvider implements ServiceProviderInterface
 	 */	
     protected function registerPresenceVerifier(Container $container)
     {
-        $container['validation.presence'] = function() use ($container) {
-            return new DatabasePresenceVerifier($container['db']);
-        };
+    	if (isset($container['db'])) {
+	        $container['validation.presence'] = function() use ($container) {
+	            return new DatabasePresenceVerifier($container['db']);
+	        };    		
+    	}
     }	
 }

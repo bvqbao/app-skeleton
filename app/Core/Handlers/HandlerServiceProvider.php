@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace Core\Handlers;
 
 use Core\Handlers\Error;
 use Core\Handlers\NotAllowed;
