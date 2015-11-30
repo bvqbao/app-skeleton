@@ -2,6 +2,7 @@
 
 namespace Core\Providers;
 
+use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\Factory;
 use Pimple\ServiceProviderInterface;
@@ -39,7 +40,7 @@ class ValidationServiceProvider implements ServiceProviderInterface
 	 */	
     protected function registerPresenceVerifier(Container $container)
     {
-    	if (isset($container['db'])) {
+    	if (isset($container['db']) and ($container['db'] instanceof ConnectionResolverInterface)) {
 	        $container['validation.presence'] = function() use ($container) {
 	            return new DatabasePresenceVerifier($container['db']);
 	        };    		
