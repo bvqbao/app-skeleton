@@ -158,7 +158,7 @@ class Application extends App
 	 */
 	protected function path()
 	{
-		return $this->basePath.'app/';
+		return $this->basePath.'app'.DIRECTORY_SEPARATOR;
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Application extends App
 	 */
 	protected function configPath()
 	{
-		return $this->basePath.'app/config/';
+		return $this->basePath.'app'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
 	}
 
     /**
@@ -178,6 +178,6 @@ class Application extends App
      */
     protected function langPath()
     {
-        return $this->basePath.'app/lang/';
+        return $this->basePath.'app'.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR;
     }	
 }
