@@ -12,11 +12,12 @@ define('SESSION_PREFIX', '');
 
 /** Create an application. */
 $app = new \Core\Application(
-	realpath('../').DIRECTORY_SEPARATOR
+	realpath('../').DIRECTORY_SEPARATOR,
+	\Core\Container::getInstance()
 );
 
 /** Load defined routes here. */
-require '../app/routes/welcome.php';
+require '../app/routes.php';
 
 /** Run the application. */
 $app->run();

@@ -1,7 +1,10 @@
 <?php
 
-namespace Core\Handlers;
+namespace Core\Providers;
 
+use Core\Handlers\Error;
+use Core\Handlers\NotAllowed;
+use Core\Handlers\NotFound;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 

@@ -2,13 +2,16 @@
 
 namespace Core;
 
-use Core\Configuration;
+use Core\ConfigAccess;
 use Core\Container;
 use Support\Facades\Facade;
 use Slim\App;
 
 /**
- * The main application.
+ * The main application. 
+ * 
+ * It is designed to work with a container that implements
+ * \Interop\Container\ContainerInterface and \ArrayAccess.
  */
 class Application extends App
 {
@@ -24,17 +27,15 @@ class Application extends App
 	 *
 	 * @param string $basePath
 	 */
-	public function __construct($basePath = null)
+	public function __construct($basePath, $container = [])
 	{
 		if (! $basePath) {
 			throw new \InvalidArgumentException(
 				"The application path has not been set.");
 		}
 
-		// Create an application with default services.
-		parent::__construct(Container::getInstance());
+		parent::__construct($container);
 		
-		// Setup paths.
 		$this->setBasePath($basePath);	
 
 		// Load all config files and apply these configs
@@ -62,7 +63,7 @@ class Application extends App
      */
     protected function getAppConfig()
     {
-		$config = new Configuration($this->loadConfigFiles());
+		$config = new ConfigAccess($this->loadConfigFiles());
 
 		// Register the configuration instance for later use.
 		// Note that Slim framework already used a service key named 'settings' for 

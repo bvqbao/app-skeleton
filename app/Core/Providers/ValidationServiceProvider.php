@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Providers;
 
 use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\Factory;

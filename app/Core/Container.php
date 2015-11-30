@@ -8,8 +8,9 @@ use Slim\Container as SlimContainer;
  * This class serves as a fake container. Its main purpose is 
  * to create a global Slim container (Pimple).
  *
- * Slim\App (hence Core\Application) expects a container that implements 
- * Interop\Container\ContainerInterface with these service keys configured and ready for use:
+ * \Core\Application expects a container that implements 
+ * \Interop\Container\ContainerInterface and \ArrayAccess with these service keys 
+ * configured and ready for use:
  *
  *  - settings: an array or instance of \ArrayAccess
  *  - environment: an instance of \Slim\Interfaces\Http\EnvironmentInterface
@@ -47,11 +48,11 @@ class Container
 	public static function getInstance()
 	{
 		if (! static::$instance) {
-			// Create a container with default services.
+			// Create a container with default services provided
+			// by Slim framework.
 			static::$instance = new SlimContainer;
 		}
 
 		return static::$instance;
 	}
-
 }

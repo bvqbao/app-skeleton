@@ -11,7 +11,7 @@ if (! function_exists('app_path')) {
      */
     function app_path($path = '')
     {
-        return Container::getInstance()['path'].ltrim($path, '/');
+        return Container::getInstance()->get('path').ltrim($path, '/');
     }
 }
 
@@ -24,7 +24,7 @@ if (! function_exists('base_path')) {
      */
     function base_path($path = '')
     {
-        return Container::getInstance()['path.base'].ltrim($path, '/');
+        return Container::getInstance()->get('path.base').ltrim($path, '/');
     }
 }
 
@@ -37,7 +37,7 @@ if (! function_exists('config_path')) {
      */
     function config_path($path = '')
     {
-        return Container::getInstance()['path.config'].ltrim($path, '/');
+        return Container::getInstance()->get('path.config').ltrim($path, '/');
     }
 }
 

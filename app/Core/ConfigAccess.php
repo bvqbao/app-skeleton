@@ -8,7 +8,7 @@ use Support\Arr;
 /**
  * The configuration repository.
  */
-class Configuration implements ArrayAccess
+class ConfigAccess implements ArrayAccess
 {
 	/**
      * All of the configuration items.
