@@ -2,57 +2,47 @@
 
 namespace Core;
 
-use Slim\Container as SlimContainer;
+use Interop\Container\ContainerInterface;
 
 /**
- * This class serves as a fake container. Its main purpose is 
- * to create a global Slim container (Pimple).
- *
- * \Core\Application expects a container that implements 
- * \Interop\Container\ContainerInterface and \ArrayAccess with these service keys 
- * configured and ready for use:
- *
- *  - settings: an array or instance of \ArrayAccess
- *  - environment: an instance of \Slim\Interfaces\Http\EnvironmentInterface
- *  - request: an instance of \Psr\Http\Message\ServerRequestInterface
- *  - response: an instance of \Psr\Http\Message\ResponseInterface
- *  - router: an instance of \Slim\Interfaces\RouterInterface
- *  - foundHandler: an instance of \Slim\Interfaces\InvocationStrategyInterface
- *  - errorHandler: a callable with the signature: function($request, $response, $exception)
- *  - notFoundHandler: a callable with the signature: function($request, $response)
- *  - notAllowedHandler: a callable with the signature: function($request, $response, $allowedHttpMethods)
- *  - callableResolver: an instance of \Slim\Interfaces\CallableResolverInterface
+ * This class serves as a fake container. Its main purpose is to 
+ * provide access to the shared instance of the true container (the one 
+ * that implements Interop\Container\ContainerInterface).
  */
-class Container
+final class Container
 {
 	/** 
-	 * The global container instance used in the application.
+	 * The current globally available container (if any).
 	 * 
-	 * @var \Slim\Container
+	 * @var \Interop\Container\ContainerInterface
 	 */
-	protected static $instance;
+	private static $instance;
 
 	/**
 	 * Prevent others from instanciating this class.
 	 */
-	protected function __construct()
+	private function __construct()
 	{
 
 	}
 
 	/** 
-	 * Create the global container instance.
+	 * Get the globally available instance of the container.
 	 * 
-	 * @return \Slim\Container
+	 * @return \Interop\Container\ContainerInterface
 	 */
 	public static function getInstance()
 	{
-		if (! static::$instance) {
-			// Create a container with default services provided
-			// by Slim framework.
-			static::$instance = new SlimContainer;
-		}
-
 		return static::$instance;
+	}
+
+    /**
+     * Set the shared instance of the container.
+     *
+     * @param  \Interop\Container\ContainerInterface  $container
+     */
+	public static function setInstance(ContainerInterface $container)
+	{
+		static::$instance = $container;
 	}
 }

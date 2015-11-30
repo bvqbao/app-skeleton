@@ -12,8 +12,7 @@ define('SESSION_PREFIX', '');
 
 /** Create an application. */
 $app = new \Core\Application(
-	realpath('../').DIRECTORY_SEPARATOR,
-	\Core\Container::getInstance()
+	realpath('../').DIRECTORY_SEPARATOR
 );
 
 /** Load defined routes here. */

@@ -8,10 +8,7 @@ use Support\Facades\Facade;
 use Slim\App;
 
 /**
- * The main application. 
- * 
- * It is designed to work with a container that implements
- * \Interop\Container\ContainerInterface and \ArrayAccess.
+ * The main application.
  */
 class Application extends App
 {
@@ -35,6 +32,10 @@ class Application extends App
 		}
 
 		parent::__construct($container);
+
+		// Make the container instance used by this application
+		// globally available.
+		Container::setInstance($this->getContainer());
 		
 		$this->setBasePath($basePath);	
 
