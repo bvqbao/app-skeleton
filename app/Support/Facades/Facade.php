@@ -10,7 +10,7 @@ abstract class Facade
     /**
      * The container instance.
      * 
-     * @var \Pimple\Container
+     * @var \Interop\Container\ContainerInterface
      */
     protected static $container;
 
@@ -52,7 +52,7 @@ abstract class Facade
     protected static function resolveFacadeInstance($name)
     {
         if(! isset(static::$instances[$name])) {
-            static::$instances[$name] = static::$container[$name];
+            static::$instances[$name] = static::$container->get($name);
         }
 
         return static::$instances[$name];
@@ -61,7 +61,7 @@ abstract class Facade
     /**
      * Set the container instance.
      * 
-     * @param \Pimple\Container $container
+     * @param \Interop\Container\ContainerInterface $container
      */
     public static function setContainer($container)
     {
@@ -71,7 +71,7 @@ abstract class Facade
     /**
      * Get the container instance.
      * 
-     * @return \Pimple\Container
+     * @return \Interop\Container\ContainerInterface
      */
     public static function getContainer()
     {
