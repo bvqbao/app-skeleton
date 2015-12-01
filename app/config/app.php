@@ -68,9 +68,9 @@ return [
     */
 
     'providers' => [
-        Core\Providers\AppServiceProvider::class,
         Core\Providers\DatabaseServiceProvider::class,
         Core\Handlers\HandlerServiceProvider::class,
+        Core\Providers\SessionServiceProvider::class,
         Core\Providers\TranslationServiceProvider::class,
         Core\Providers\ValidationServiceProvider::class,
     ],

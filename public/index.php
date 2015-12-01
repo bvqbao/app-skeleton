@@ -6,10 +6,6 @@ define('DIR', '/');
 /** Register autoloader. */
 require '../vendor/autoload.php';
 
-/** Start sessions. */
-define('SESSION_PREFIX', 'SLIMVC_');
-\Support\Session::init();
-
 /** Create an application. */
 $app = new \Core\Application(
 	realpath('../').DIRECTORY_SEPARATOR
