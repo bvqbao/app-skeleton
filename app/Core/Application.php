@@ -2,8 +2,8 @@
 
 namespace Core;
 
-use Core\ConfigAccess;
 use Core\Container;
+use Core\Config\Repository;
 use Support\Facades\Facade;
 use Slim\App;
 
@@ -59,11 +59,11 @@ class Application extends App
     /**
      * Get the configurations for the application.
      * 
-     * @return \Core\ConfigAccess
+     * @return \Core\Config\Repository
      */
     protected function getAppConfig()
     {
-		$config = new ConfigAccess($this->loadConfigFiles());
+		$config = new Repository($this->loadConfigFiles());
 
 		// Register the configuration instance for later use.
 		// Note that Slim framework already used a service key named 'settings' for 

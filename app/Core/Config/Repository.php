@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Config;
 
 use ArrayAccess;
 use Support\Arr;
@@ -8,7 +8,7 @@ use Support\Arr;
 /**
  * The configuration repository.
  */
-class ConfigAccess implements ArrayAccess
+class Repository implements ArrayAccess
 {
 	/**
      * All of the configuration items.
