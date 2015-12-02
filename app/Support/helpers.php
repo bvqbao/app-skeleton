@@ -58,6 +58,19 @@ if (! function_exists('config_path')) {
     }
 }
 
+if (! function_exists('base_url')) {
+    /**
+     * Create a root-relative url.
+     * 
+     * @param  string $path
+     * @return string
+     */
+    function base_url($path = '')
+    {
+    	return container('url.base').ltrim($path, '/');
+    }
+}
+
 if (! function_exists('html_errors')) {
     /**
      * Put errors inside divs.
@@ -78,19 +91,6 @@ if (! function_exists('html_errors')) {
                 return "<div class='$class'>$errors</div>";
             }
         }
-    }
-}
-
-if (! function_exists('relative_url')) {
-    /**
-     * Create a root-relative url.
-     * 
-     * @param  string $path
-     * @return string
-     */
-    function relative_url($path = '')
-    {
-    	return DIR.ltrim($path, '/');
     }
 }
 

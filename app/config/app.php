@@ -17,6 +17,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Base URL
+    |--------------------------------------------------------------------------
+    |
+    | It's the root-relative path to the public folder. Use '/' if the later
+    | resides directly in the web root directory (not in a subdirectory).
+    |
+    */
+
+    'base_url' => '/',    
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |

@@ -1,8 +1,5 @@
 <?php
 
-/** The root-relative path to the public folder. */
-define('DIR', '/');
-
 /** Register autoloader. */
 require '../vendor/autoload.php';
 
