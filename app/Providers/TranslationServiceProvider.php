@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace Providers;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;

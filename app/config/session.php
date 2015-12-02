@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may specify in which segment in the $_SESSION array we want to
-    | store the data.
+    | store the application's session data.
     |
     */
    

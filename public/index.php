@@ -12,7 +12,7 @@ $app = new \Core\Application(
 );
 
 /** Load defined routes here. */
-require '../app/routes.php';
+require '../app/Http/routes.php';
 
 /** Run the application. */
 $app->run();

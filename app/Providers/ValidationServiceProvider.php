@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace Providers;
 
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Validation\DatabasePresenceVerifier;

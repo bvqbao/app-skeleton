@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace Http\Controllers;
 
 use Core\Controller;
 use Core\View;

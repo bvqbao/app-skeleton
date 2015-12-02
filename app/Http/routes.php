@@ -9,5 +9,5 @@
 |--------------------------------------------------------------------------
 */
 
-$app->get('/', 'Controllers\Welcome:welcome');
-$app->get('/subpage', 'Controllers\Welcome:subpage');
+$app->get('/', 'Http\Controllers\Welcome:welcome');
+$app->get('/subpage', 'Http\Controllers\Welcome:subpage');

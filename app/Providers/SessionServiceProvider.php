@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace Providers;
 
 use Aura\Session\SessionFactory;
 use Aura\Session\Session;

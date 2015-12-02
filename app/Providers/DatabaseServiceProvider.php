@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace Providers;
 
 use Illuminate\Database\Capsule\Manager;
 use Pimple\ServiceProviderInterface;
