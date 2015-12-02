@@ -19,7 +19,7 @@ class RemoveTrailingSlashes {
 	    $uri = $request->getUri();
 	    $path = $uri->getPath();
 	    if ($path != '/' && substr($path, -1) == '/') {
-	        $uri = $uri->withPath(trim($path, '/'));
+	        $uri = $uri->withPath(rtrim($path, '/'));
 	        $request = $request->withUri($uri);
 	    }
 
