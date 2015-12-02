@@ -53,8 +53,6 @@ class Application extends App
 		date_default_timezone_set($config['app.timezone']);
 		mb_internal_encoding('UTF-8');    
 
-		$this->setBaseUrl($config['app.base_url']);
-		
 		$this->registerServices($config['app.providers']);
     }
 
@@ -96,20 +94,6 @@ class Application extends App
     	}
 
     	return $items;
-    }
-
-    /**
-     * Set the base url for the application.
-     * 
-     * @param string $baseUrl
-     */
-    protected function setBaseUrl($baseUrl)
-    {
-    	$container = $this->getContainer();
-    	$container['url.base'] = $baseUrl;
-
-    	$router = $container->get('router');
-    	$router->setBasePath(ltrim($baseUrl));
     }
 
 	/**
@@ -164,7 +148,7 @@ class Application extends App
 	 */
 	public function basePath($path = '')
 	{
-		return $this->basePath.ltrim($path, '/');
+		return $this->basePath.ltrim($path, DIRECTORY_SEPARATOR);
 	}
 
 	/**

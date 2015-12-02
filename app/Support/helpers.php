@@ -28,7 +28,7 @@ if (! function_exists('app_path')) {
      */
     function app_path($path = '')
     {
-        return container('path').ltrim($path, '/');
+        return container('path').ltrim($path, DIRECTORY_SEPARATOR);
     }
 }
 
@@ -41,7 +41,7 @@ if (! function_exists('base_path')) {
      */
     function base_path($path = '')
     {
-        return container('path.base').ltrim($path, '/');
+        return container('path.base').ltrim($path, DIRECTORY_SEPARATOR);
     }
 }
 
@@ -54,7 +54,7 @@ if (! function_exists('config_path')) {
      */
     function config_path($path = '')
     {
-        return container('path.config').ltrim($path, '/');
+        return container('path.config').ltrim($path, DIRECTORY_SEPARATOR);
     }
 }
 
@@ -67,7 +67,8 @@ if (! function_exists('base_url')) {
      */
     function base_url($path = '')
     {
-    	return container('url.base').ltrim($path, '/');
+        $uri = container('request')->getUri();
+    	return $uri->getBasePath().'/'.ltrim($path, '/');
     }
 }
 
