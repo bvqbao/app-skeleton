@@ -145,10 +145,12 @@ class Application extends App
 
 	/**
 	 * Get the path to the framework installation.
+	 *
+	 * @return string
 	 */
-	public function basePath($path = '')
+	public function basePath()
 	{
-		return $this->basePath.ltrim($path, DIRECTORY_SEPARATOR);
+		return $this->basePath;
 	}
 
 	/**
