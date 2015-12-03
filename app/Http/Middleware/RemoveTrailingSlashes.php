@@ -2,11 +2,10 @@
 
 namespace Http\Middleware;
 
-use Core\Middleware;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class RemoveTrailingSlashes extends Middleware 
+class RemoveTrailingSlashes
 {
 	/**
 	 * Remove all trailing slashes from the request uri.
@@ -16,7 +15,7 @@ class RemoveTrailingSlashes extends Middleware
 	 * @param  callable $next
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function handle(Request $request, Response $response, callable $next) {
+	public function __invoke(Request $request, Response $response, callable $next) {
 	    $uri = $request->getUri();
 	    $path = $uri->getPath();
 	    if ($path != '/' and substr($path, -1) == '/') {

@@ -9,9 +9,7 @@
 | 
 */
 
-$app->middleware([
-	Http\Middleware\RemoveTrailingSlashes::class,
-]);
+$app->add(new Http\Middleware\RemoveTrailingSlashes());
 
 /*
 |--------------------------------------------------------------------------
