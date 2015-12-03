@@ -4,6 +4,8 @@ namespace Http\Controllers;
 
 use Core\Controller;
 use Core\View;
+use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 class Welcome extends Controller
 {
@@ -15,7 +17,7 @@ class Welcome extends Controller
 	 * @param  array $args
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function welcome($request, $response, $args)
+	public function welcome(Request $request, Response $response, array $args)
 	{
 		$translator = $this->get('translator');
 
@@ -37,7 +39,7 @@ class Welcome extends Controller
 	 * @param  array $args
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function subpage($request, $response, $args)
+	public function subpage(Request $request, Response $response, array $args)
 	{
 		$translator = $this->get('translator');
 

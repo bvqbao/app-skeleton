@@ -2,12 +2,16 @@
 
 /*
 |--------------------------------------------------------------------------
-| Register Middleware
+| Application Middleware
 |--------------------------------------------------------------------------
-|
+| 
+| The application's global HTTP middleware stack.
+| 
 */
 
-$app->add(new \Http\Middleware\RemoveTrailingSlashes());
+$app->middleware([
+	Http\Middleware\RemoveTrailingSlashes::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +19,7 @@ $app->add(new \Http\Middleware\RemoveTrailingSlashes());
 |--------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
-| We can use a Closure or a controller method (class:method) to handle a route.
+| You can use a Closure or a controller method (class:method) to handle a route.
 |
 */
 

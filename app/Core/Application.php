@@ -182,4 +182,16 @@ class Application extends App
     {
         return $this->basePath.'app'.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR;
     }	
+
+    /**
+     * Add to middleware stack.
+     * 
+     * @param  array  $callables
+     */
+    public function middleware(array $callables)
+    {
+    	foreach ($callables as $callable) {
+    		$this->add($callable);
+    	}
+    }
 }
