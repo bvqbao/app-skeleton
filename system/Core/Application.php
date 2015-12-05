@@ -23,13 +23,11 @@ class Application extends App
 	 * Create a new application.
 	 *
 	 * @param string $basePath
-	 * @param array|\Interop\Container\ContainerInterface $container
 	 */
-	public function __construct($basePath, $container = [])
+	public function __construct($basePath)
 	{
-		if (! $basePath) {
-			throw new \InvalidArgumentException(
-				"The application path has not been set.");
+		if (is_null($basePath)) {
+			throw new \InvalidArgumentException("The base path has not been set.");
 		}
 
 		parent::__construct($container);
@@ -62,7 +60,12 @@ class Application extends App
 		};		
 
 		date_default_timezone_set($config['app.timezone']);
-		mb_internal_encoding('UTF-8');   
+		mb_internal_encoding('UTF-8');  
+
+		// Register route handler strategy
+		$container['foundHandler'] = function() {
+			return new \Slim\Handlers\Strategies\RequestResponseArgs();
+		};		 
 
 		// Register a logger used in the application
 		$container['logger'] = function() use ($container) {
