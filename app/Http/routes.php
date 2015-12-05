@@ -5,11 +5,12 @@
 | Application Middleware
 |--------------------------------------------------------------------------
 | 
-| The application's global HTTP middleware stack.
+| The application's global HTTP middleware stack. 
+| Aplication middleware is executed as Last In First Executed (LIFE).
 | 
 */
 
-$app->add(new App\Http\Middleware\RemoveTrailingSlashes());
+$app->add(App\Http\Middleware\RemoveTrailingSlashes::class);
 
 /*
 |--------------------------------------------------------------------------
