@@ -7,6 +7,6 @@ use Support\Facades\Lang;
 
 <p><?php echo $welcomeMessage; ?></p>
 
-<a class="btn btn-md btn-success" href="<?php echo base_url('/subpage');?>">
+<a class="btn btn-md btn-success" href="<?php echo url('subpage');?>">
 	<?php echo Lang::get('welcome.open_subpage'); ?>
 </a>

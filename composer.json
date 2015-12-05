@@ -22,10 +22,11 @@
     },
     "autoload": {
         "psr-4": {
-            "": "app/"
+            "": "system/",
+            "App\\": "app/"
         },
         "files": [
-            "app/Support/helpers.php"
-        ]        
+            "system/Support/helpers.php"
+        ]
     }
 }

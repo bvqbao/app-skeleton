@@ -6,8 +6,7 @@ use Interop\Container\ContainerInterface;
 
 /**
  * This class serves as a fake container. Its main purpose is to 
- * provide access to the shared instance of the true container (the one 
- * that implements Interop\Container\ContainerInterface).
+ * provide access to the container used by the application.
  */
 final class Container
 {

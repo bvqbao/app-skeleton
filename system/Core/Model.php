@@ -122,7 +122,11 @@ abstract class Model extends Eloquent
 	{
 		$rules = $this->getRulesInContext();
 		foreach ($rules as &$rule) {
-			$rule = str_replace(':id', $this->attributes["{$this->primaryKey}"], $rule);
+			if (isset($this->primaryKey)) {
+				if (isset($this->{$this->primaryKey})) {
+					$rule = str_replace(':id', $this->{$this->primaryKey}, $rule);
+				}
+			}
 		}
 
 		$customMessages = (empty($customMessages)) ? static::$messages : $customMessages;

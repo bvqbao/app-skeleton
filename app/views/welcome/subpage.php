@@ -7,6 +7,6 @@ use Support\Facades\Lang;
 
 <p><?php echo $welcomeMessage; ?></p>
 
-<a class="btn btn-md btn-success" href="<?php echo base_url();?>">
+<a class="btn btn-md btn-success" href="<?php echo url();?>">
 	<?php echo Lang::get('welcome.back_home'); ?>
 </a>

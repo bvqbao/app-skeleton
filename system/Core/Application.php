@@ -48,21 +48,7 @@ class Application extends App
      */
     protected function bootstrap()
     {
-		$config = $this->getAppConfig();
-
-		date_default_timezone_set($config['app.timezone']);
-		mb_internal_encoding('UTF-8');    
-
-		$this->registerServices($config['app.providers']);
-    }
-
-    /**
-     * Get the configurations for the application.
-     * 
-     * @return \Core\Config\Repository
-     */
-    protected function getAppConfig()
-    {
+    	// Read all config files
 		$config = new Repository($this->loadConfigFiles());
 
 		// Register the configuration instance for later use.
@@ -73,10 +59,61 @@ class Application extends App
 		$container = $this->getContainer();
 		$container['config'] = function() use ($config) {
 			return $config;
-		};  
-		
-		return $config;
+		};		
+
+		date_default_timezone_set($config['app.timezone']);
+		mb_internal_encoding('UTF-8');   
+
+		// Register a logger used in the application
+		$container['logger'] = function() use ($container) {
+		    $logger = new \Monolog\Logger('logger');
+		    $logger->pushProcessor(new \Monolog\Processor\WebProcessor());
+		    $logger->pushHandler(new \Monolog\Handler\StreamHandler(
+		    	$container['path.system'].'logs/error.log', 
+		    	\Monolog\Logger::DEBUG));
+
+		    return $logger;
+		};		
+
+		// Register 500 System Error handler
+		$container['errorHandler'] = function() use ($container) {
+			$errorHandler = new \Core\Handlers\Error($container['config']['app.debug']);
+			$errorHandler->setLogger($container['logger']);
+
+    		return $errorHandler;
+		};
+
+    	// Register 404 Not Found handler
+ 		$container['notFoundHandler'] = function() {
+    		return new \Core\Handlers\NotFound();
+		};	   	
+
+		// Register 405 Method Not Allowed handler
+		$container['notAllowedHandler'] = function() {
+    		return new \Core\Handlers\NotAllowed();
+		};		 
+
+		// Register the specified providers.		
+		$providers = $config['app.providers'];
+		foreach($providers as $provider) {
+			$container->register(new $provider);
+		}
+
+		// Register facades which are shortcuts 
+		// for accessing registered services.
+		Facade::setContainer($container);
     }
+
+    /**
+     * Shortcut for registering services into the container.
+     * 
+     * @param  string $key
+     * @param  mixed $value
+     */
+    public function register($key, $value)
+    {
+    	$this->getContainer()[$key] = $value;
+    }    
 
     /**
      * Load the configuration files.
@@ -94,24 +131,7 @@ class Application extends App
     	}
 
     	return $items;
-    }
-
-	/**
-	 * Register the specified services.
-	 *
-	 * @param array
-	 */
-	protected function registerServices(array $services)
-	{
-		$container = $this->getContainer();
-		foreach($services as $service) {
-			$container->register(new $service);
-		}
-
-		// Register facades which are shortcuts 
-		// for accessing registered services.
-		Facade::setContainer($container);
-	}	
+    }	
 
 	/**
 	 * Set the path to the framework installation.
@@ -138,7 +158,7 @@ class Application extends App
 
         $container['path'] = $this->path();
 
-        foreach (['base', 'config', 'lang'] as $path) {
+        foreach (['base', 'system', 'config', 'lang'] as $path) {
             $container['path.'.$path] = $this->{$path.'Path'}();
         }
     }	
@@ -164,13 +184,23 @@ class Application extends App
 	}
 
 	/**
+	 * Get the path to the application "system" directory.
+	 * 
+	 * @return string
+	 */
+	protected function systemPath()
+	{
+		return $this->basePath.'system'.DIRECTORY_SEPARATOR;
+	}	
+
+	/**
 	 * Get the path to the application configuration files.
 	 * 
 	 * @return string
 	 */
 	protected function configPath()
 	{
-		return $this->basePath.'app'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
+		return $this->basePath.'system'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
 	}
 
     /**
@@ -180,6 +210,6 @@ class Application extends App
      */
     protected function langPath()
     {
-        return $this->basePath.'app'.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR;
+        return $this->basePath.'system'.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR;
     }
 }

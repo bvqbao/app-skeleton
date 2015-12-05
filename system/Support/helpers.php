@@ -32,6 +32,19 @@ if (! function_exists('app_path')) {
     }
 }
 
+if (! function_exists('sys_path')) {
+    /**
+     * Get the path to the system folder.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function sys_path($path = '')
+    {
+        return container('path.system').ltrim($path, DIRECTORY_SEPARATOR);
+    }
+}
+
 if (! function_exists('base_path')) {
     /**
      * Get the path to the base of the install.
@@ -58,17 +71,17 @@ if (! function_exists('config_path')) {
     }
 }
 
-if (! function_exists('base_url')) {
+if (! function_exists('url')) {
     /**
      * Create a root-relative url.
      * 
      * @param  string $path
      * @return string
      */
-    function base_url($path = '')
+    function url($path = '')
     {
         $uri = container('request')->getUri();
-    	return $uri->getBasePath().'/'.ltrim($path, '/');
+        return $uri->getBasePath().'/'.ltrim($path, '/');
     }
 }
 

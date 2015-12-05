@@ -19,14 +19,14 @@ class SessionServiceProvider implements ServiceProviderInterface
 	{
 		// Register session instance.
 		$session = $this->newSession($container);		
-		$container['session'] = function() use ($session) {
+		$container['sessionManager'] = function() use ($session) {
 			return $session;
 		};
 
 		// Register segment instance.
 		$config = $container['config'];
 		$segment = $session->getSegment($config['session.segment']);
-		$container['session.segment'] = function() use ($segment) {
+		$container['session'] = function() use ($segment) {
 			return $segment;
 		};
 	}

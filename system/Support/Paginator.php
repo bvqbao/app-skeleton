@@ -7,7 +7,6 @@ namespace Support;
  */
 class Paginator
 {
-
     /**
      * Set the number of items per page.
      *

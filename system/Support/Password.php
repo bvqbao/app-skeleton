@@ -4,7 +4,6 @@ namespace Support;
 
 class Password
 {
-
     /**
      * Hash the password using the specified algorithm
      *

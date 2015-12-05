@@ -12,7 +12,7 @@ use Support\Facades\Lang;
 	<?php
 	Assets::css(array(
 		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
-		base_url('css/style.css'),
+		url('css/style.css'),
 	));
 	?>
 </head>
@@ -25,7 +25,7 @@ use Support\Facades\Lang;
 	<!-- JS -->
 	<?php
 	Assets::js(array(
-		base_url('js/jquery.js'),
+		url('js/jquery.js'),
 		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'
 	));
 	?>

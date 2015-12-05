@@ -9,7 +9,7 @@
 | 
 */
 
-$app->add(new Http\Middleware\RemoveTrailingSlashes());
+$app->add(new App\Http\Middleware\RemoveTrailingSlashes());
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +21,5 @@ $app->add(new Http\Middleware\RemoveTrailingSlashes());
 |
 */
 
-$app->get('/', 'Http\Controllers\Welcome:welcome');
-$app->get('/subpage', 'Http\Controllers\Welcome:subpage');
+$app->get('/', 'App\Http\Controllers\Welcome:welcome');
+$app->get('/subpage', 'App\Http\Controllers\Welcome:subpage');
