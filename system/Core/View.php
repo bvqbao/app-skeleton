@@ -25,45 +25,38 @@ class View
 
     /**
      * Array of mappings from namesapce to path.
-     * 
+     *
      * @var array
      */
     protected static $nsPaths = [
-        "views"   => "app/views/",
-        "layouts" => "app/views/layouts/"
+        "views" => "app/views/",
+        "layouts" => "app/views/layouts/",
     ];
 
     /**
-     * Array of shared data.
-     * 
-     * @var array
-     */
-    protected static $shared = [];
-
-    /**
      * Data passed to view.
-     * 
+     *
      * @var array
      */
     protected $data = [];
 
     /**
      * The view name.
-     * 
+     *
      * @var string
      */
     protected $view;
 
     /**
      * The path of the view file.
-     * 
+     *
      * @var string
      */
     protected $path;
 
     /**
      * Create a new View instance.
-     * 
+     *
      * @param string $view
      * @param string $path
      * @param array  $data
@@ -77,7 +70,7 @@ class View
 
     /**
      * Create a new View instance.
-     * 
+     *
      * @param  string $view
      * @param  array  $data
      * @return \Core\View
@@ -89,19 +82,19 @@ class View
 
     /**
      * Get the fully qualified location of the view.
-     * 
+     *
      * @param  string $view
      * @return string
      */
     protected static function find($name)
-    {      
+    {
         if (static::hasNamespace($name = trim($name))) {
             list($namespace, $view) = static::getNamespaceSegments($name);
             return static::findViewInPath($view, static::$nsPaths[$namespace]);
         }
 
-        return static::findViewInPath($name, 
-            static::$nsPaths[static::DEFAULT_NAMESPACE]);        
+        return static::findViewInPath($name,
+            static::$nsPaths[static::DEFAULT_NAMESPACE]);
     }
 
     /**
@@ -120,12 +113,12 @@ class View
             throw new \InvalidArgumentException("View [$name] has an invalid name.");
         }
 
-        if (! isset(static::$nsPaths[$segments[0]])) {
+        if (!isset(static::$nsPaths[$segments[0]])) {
             throw new \InvalidArgumentException("No path defined for [{$segments[0]}].");
         }
 
         return $segments;
-    }    
+    }
 
     /**
      * Return whether or not the view name contains a namespace.
@@ -136,11 +129,11 @@ class View
     protected static function hasNamespace($name)
     {
         return strpos($name, static::NAMESPACE_DELIMITER) > 0;
-    }    
+    }
 
     /**
      * Find the given view in the given path.
-     * 
+     *
      * @param  string $name
      * @param  string $path
      * @return string
@@ -149,8 +142,8 @@ class View
      */
     protected static function findViewInPath($name, $path)
     {
-        $viewPath = base_path($path.str_replace('.', '/', $name).'.php');
-        if (! file_exists($viewPath)) {
+        $viewPath = base_path($path . str_replace('.', '/', $name) . '.php');
+        if (!file_exists($viewPath)) {
             throw new \InvalidArgumentException("View [$name] not found.");
         }
 
@@ -159,14 +152,14 @@ class View
 
     /**
      * Set a mapping from namespace to path.
-     * 
+     *
      * @param string $namespace
      * @param string $path
      */
     public static function setNamespace($namespace, $path)
     {
         static::$nsPaths[$namespace] = $path;
-    }   
+    }
 
     /**
      * Get the evaluated content of the view.
@@ -180,7 +173,7 @@ class View
 
     /**
      * Get the evaluated content of the view at the given path.
-     * 
+     *
      * @param  string $path
      * @param  array  $data
      * @return string
@@ -194,7 +187,7 @@ class View
         extract($data);
 
         try {
-            include($path);
+            include $path;
         } catch (\Exception $e) {
             while (ob_get_level() > $obLevel) {
                 ob_end_clean();
@@ -203,7 +196,7 @@ class View
         }
 
         return ltrim(ob_get_clean());
-    }    
+    }
 
     /**
      * Get the data bound to the view instance.
@@ -212,7 +205,7 @@ class View
      */
     protected function gatherData()
     {
-        $data = array_merge(static::$shared, $this->data);
+        $data = $this->data;
         foreach ($data as $key => $value) {
             if ($value instanceof View) {
                 $data[$key] = $value->getContent();
@@ -233,7 +226,7 @@ class View
     public function nest($key, $view, array $data = [])
     {
         return $this->with($key, static::make($view, $data));
-    }    
+    }
 
     /**
      * Add a piece of data to the view.
@@ -249,48 +242,9 @@ class View
         } else {
             $this->data[$key] = $value;
         }
-        
+
         return $this;
-    } 
-
-    /**
-     * Add a piece of shared data.
-     *
-     * @param  array|string  $key
-     * @param  mixed  $value
-     * @return mixed
-     */
-    public static function share($key, $value = null)
-    {
-        if (! is_array($key)) {
-            return static::$shared[$key] = $value;
-        }
-        foreach ($key as $innerKey => $innerValue) {
-            static::share($innerKey, $innerValue);
-        }
-    }    
-
-    /**
-     * Get an item from the shared data.
-     *
-     * @param  string  $key
-     * @param  mixed   $default
-     * @return mixed
-     */
-    public static function shared($key, $default = null)
-    {
-        return Arr::get(static::$shared, $key, $default);
     }
-
-    /**
-     * Get all of the shared data.
-     *
-     * @return array
-     */
-    public static function getShared()
-    {
-        return static::$shared;
-    }    
 
     /**
      * Get the name of the view.
@@ -331,7 +285,7 @@ class View
     public function setPath($path)
     {
         $this->path = $path;
-    }    
+    }
 
     /**
      * Get the string content of the view.
@@ -341,7 +295,7 @@ class View
     public function __toString()
     {
         return $this->getContent();
-    }    
+    }
 
     /**
      * Get a piece of data from the view.
@@ -386,5 +340,5 @@ class View
     public function __unset($key)
     {
         unset($this->data[$key]);
-    }    
+    }
 }
