@@ -2,8 +2,8 @@
 
 namespace Core\Handlers;
 
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Slim\Http\Body;
 
 /**
@@ -91,10 +91,10 @@ END;
         $body->write($output);
 
         return $response
-                ->withStatus($status)
-                ->withHeader('Content-type', $contentType)
-                ->withHeader('Allow', $allow)
-                ->withBody($body);
+            ->withStatus($status)
+            ->withHeader('Content-type', $contentType)
+            ->withHeader('Allow', $allow)
+            ->withBody($body);
     }
 
     /**

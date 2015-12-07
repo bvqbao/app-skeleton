@@ -2,55 +2,53 @@
 
 namespace Providers;
 
-use Aura\Session\SessionFactory;
 use Aura\Session\Session;
-use Aura\Session\Segment;
-use Pimple\ServiceProviderInterface;
+use Aura\Session\SessionFactory;
 use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 class SessionServiceProvider implements ServiceProviderInterface
 {
-	/**
-	 * Register any session services.
-	 * 
-	 * @param  \Pimple\Container $container
-	 */		
-	public function register(Container $container)
-	{
-		// Register session instance.
-		$session = $this->newSession($container);		
-		$container['sessionManager'] = function() use ($session) {
-			return $session;
-		};
+    /**
+     * Register any session services.
+     *
+     * @param  \Pimple\Container $container
+     */
+    public function register(Container $container)
+    {
+        $this->registerSessionManager($container);
 
-		// Register segment instance.
-		$config = $container['config'];
-		$segment = $session->getSegment($config['session.segment']);
-		$container['session'] = function() use ($segment) {
-			return $segment;
-		};
-	}
+        $container['session'] = function () {
+            $config = $container['config'];
+            $sessionManager = $container['sessionManager'];
+            $segment = $sessionManager->getSegment($config['session.segment']);
 
-	/**
-	 * Create a new session instance.
-	 * 
-	 * @param  \Pimple\Container $container
-	 * @return \Aura\Session\Session
-	 */
-	protected function newSession(Container $container)
-	{
-		$sessionFactory = new SessionFactory();
+            return $segment;
+        };
+    }
 
-		$session = $sessionFactory->newInstance($_COOKIE);
+    /**
+     * Register session manager.
+     *
+     * @param  \Pimple\Container $container
+     * @return \Aura\Session\Session
+     */
+    protected function registerSessionManager($container)
+    {
+        $container['sessionManager'] = function () {
+            $sessionFactory = new SessionFactory();
 
-		$config = $container['config'];
-		$session->setCookieParams([
-			'lifetime' => $config['session.lifetime']*60,
-			'path' => $config['session.path'],
-			'domain' => $config['session.domain'],
-			'secure' => $config['session.secure'],
-		]);	
+            $session = $sessionFactory->newInstance($_COOKIE);
 
-		return $session;		
-	}
+            $config = $container['config'];
+            $session->setCookieParams([
+                'lifetime' => $config['session.lifetime'] * 60,
+                'path' => $config['session.path'],
+                'domain' => $config['session.domain'],
+                'secure' => $config['session.secure'],
+            ]);
+
+            return $session;
+        };
+    }
 }

@@ -11,9 +11,9 @@ return [
     | stack traces will be shown on every error that occurs within your
     | application. If disabled, a simple generic error page is shown.
     |
-    */
-   
-	'debug'	=> true, 
+     */
+
+    'debug' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -24,9 +24,9 @@ return [
     | by the translation service provider. You are free to set this value
     | to any of the locales which will be supported by the application.
     |
-    */
-   
-	'locale' => 'vi',
+     */
+
+    'locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -37,9 +37,9 @@ return [
     | is not available. You may change the value to correspond to any of
     | the language folders that are provided through your application.
     |
-    */
-   
-	'fallback_locale' => 'en',
+     */
+
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -50,9 +50,9 @@ return [
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
     |
-    */
-   
-	'timezone' => 'Asia/Ho_Chi_Minh',
+     */
+
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     | Each service provider must implement the \Pimple\ServiceProviderInterface.
     |
-    */
+     */
 
     'providers' => [
         Providers\DatabaseServiceProvider::class,

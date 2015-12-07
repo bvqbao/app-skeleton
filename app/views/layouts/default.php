@@ -7,12 +7,12 @@ use Support\Facades\Lang;
 <head>
 	<!-- Site meta -->
 	<meta charset="utf-8">
-	<title><?php echo $title.' - V1.0'; ?></title>
+	<title><?php echo $title . ' - V1.0'; ?></title>
 	<!-- CSS -->
 	<?php
 	Assets::css(array(
-		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
-		url('css/style.css'),
+	    '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
+	    url('css/style.css'),
 	));
 	?>
 </head>
@@ -25,8 +25,8 @@ use Support\Facades\Lang;
 	<!-- JS -->
 	<?php
 	Assets::js(array(
-		url('js/jquery.js'),
-		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'
+	    url('js/jquery.js'),
+	    '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
 	));
 	?>
 </body>

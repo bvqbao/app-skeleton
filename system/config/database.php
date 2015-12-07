@@ -9,7 +9,7 @@ return [
     | Here you may specify which of the database connections below you wish
     | to use as your default connection for all database work.
     |
-    */
+     */
     'default' => 'mysql',
 
     /*
@@ -19,26 +19,26 @@ return [
     |
     | Here are each of the database connections setup for your application.
     |
-    */
+     */
     'connections' => [
 
         'sqlite' => [
-            'driver'    => 'sqlite',
-            'database'  => base_path('database.sqlite'),
-            'prefix'    => '',
+            'driver' => 'sqlite',
+            'database' => base_path('database.sqlite'),
+            'prefix' => '',
         ],
 
         'mysql' => [
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'slimvc',
-            'username'  => 'root',
-            'password'  => '',
-            'charset'   => 'utf8',
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'database' => 'slimvc',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
+            'prefix' => '',
+            'strict' => false,
         ],
 
-    ]
+    ],
 ];

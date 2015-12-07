@@ -2,7 +2,7 @@
 
 use Core\Container;
 
-if (! function_exists('container')) {
+if (!function_exists('container')) {
     /**
      * Get the available container instance.
      *
@@ -19,7 +19,7 @@ if (! function_exists('container')) {
     }
 }
 
-if (! function_exists('app_path')) {
+if (!function_exists('app_path')) {
     /**
      * Get the path to the application folder.
      *
@@ -28,11 +28,11 @@ if (! function_exists('app_path')) {
      */
     function app_path($path = '')
     {
-        return container('path').ltrim($path, DIRECTORY_SEPARATOR);
+        return container('path') . ltrim($path, DIRECTORY_SEPARATOR);
     }
 }
 
-if (! function_exists('sys_path')) {
+if (!function_exists('sys_path')) {
     /**
      * Get the path to the system folder.
      *
@@ -41,11 +41,11 @@ if (! function_exists('sys_path')) {
      */
     function sys_path($path = '')
     {
-        return container('path.system').ltrim($path, DIRECTORY_SEPARATOR);
+        return container('path.system') . ltrim($path, DIRECTORY_SEPARATOR);
     }
 }
 
-if (! function_exists('base_path')) {
+if (!function_exists('base_path')) {
     /**
      * Get the path to the base of the install.
      *
@@ -54,11 +54,11 @@ if (! function_exists('base_path')) {
      */
     function base_path($path = '')
     {
-        return container('path.base').ltrim($path, DIRECTORY_SEPARATOR);
+        return container('path.base') . ltrim($path, DIRECTORY_SEPARATOR);
     }
 }
 
-if (! function_exists('config_path')) {
+if (!function_exists('config_path')) {
     /**
      * Get the configuration path.
      *
@@ -67,25 +67,32 @@ if (! function_exists('config_path')) {
      */
     function config_path($path = '')
     {
-        return container('path.config').ltrim($path, DIRECTORY_SEPARATOR);
+        return container('path.config') . ltrim($path, DIRECTORY_SEPARATOR);
     }
 }
 
-if (! function_exists('url')) {
+if (!function_exists('url')) {
     /**
      * Create a root-relative url.
-     * 
-     * @param  string $path
+     *
+     * @param string $path
+     * @param array $queryParams Optional query string parameters
      * @return string
      */
-    function url($path = '')
+    function url($path = '', array $queryParams = [])
     {
         $uri = container('request')->getUri();
-        return $uri->getBasePath().'/'.ltrim($path, '/');
+        $url = $uri->getBasePath() . '/' . ltrim($path, '/');
+
+        if ($queryParams) {
+            $url .= '?' . http_build_query($queryParams);
+        }
+
+        return $url;
     }
 }
 
-if (! function_exists('html_errors')) {
+if (!function_exists('html_errors')) {
     /**
      * Put errors inside divs.
      *
@@ -96,8 +103,9 @@ if (! function_exists('html_errors')) {
     function html_errors($errors, $class = 'alert alert-danger')
     {
         if (is_array($errors)) {
+            $row = '';
             foreach ($errors as $error) {
-                $row.= "<div class='$class'>$error</div>";
+                $row .= "<div class='$class'>$error</div>";
             }
             return $row;
         } else {
@@ -108,8 +116,8 @@ if (! function_exists('html_errors')) {
     }
 }
 
-if (! function_exists('slug')) {
-	/**
+if (!function_exists('slug')) {
+    /**
      * This function converts an url segment to an safe one, for example:
      * `test name @132` will be converted to `test-name--123`
      * Basicly it works by replacing every character that isn't an letter or an number to an dash sign
@@ -119,7 +127,7 @@ if (! function_exists('slug')) {
      *
      * @return mixed|string
      */
-	function slug($slug)
+    function slug($slug)
     {
         setlocale(LC_ALL, "en_US.utf8");
 

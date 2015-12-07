@@ -7,41 +7,41 @@ use Interop\Container\ContainerInterface;
 /**
  * The base controller.
  */
-abstract class Controller 
+abstract class Controller
 {
-	/**
-	 * Container.
-	 * 
-	 * @var \Interop\Container\ContainerInterface
-	 */
-	protected $container;
+    /**
+     * Container.
+     *
+     * @var \Interop\Container\ContainerInterface
+     */
+    protected $container;
 
-	/**
-	 * Create a new controller instance.
-	 * 
-	 * @param \Interop\Container\ContainerInterface $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		$this->container = $container;
-	}
-
-	/**
-	 * Get a service from the container.
-	 * 
-	 * @param  string $name
-	 * @return mixed
-	 */
-    protected function get($name)
+    /**
+     * Create a new controller instance.
+     *
+     * @param \Interop\Container\ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
     {
-    	return $this->container->get($name);
-    }	
+        $this->container = $container;
+    }
 
     /**
      * Get a service from the container.
-     * 
-	 * @param  string $name
-	 * @return mixed
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    protected function get($name)
+    {
+        return $this->container->get($name);
+    }
+
+    /**
+     * Get a service from the container.
+     *
+     * @param  string $name
+     * @return mixed
      */
     public function __get($name)
     {
@@ -50,12 +50,12 @@ abstract class Controller
 
     /**
      * Check if a service is present in the container.
-     * 
+     *
      * @param  string $name
      * @return boolean
      */
     public function __isset($name)
     {
         return $this->container->has($name);
-    }  
+    }
 }

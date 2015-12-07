@@ -9,14 +9,14 @@ abstract class Facade
 {
     /**
      * The container instance.
-     * 
+     *
      * @var \Interop\Container\ContainerInterface
      */
     protected static $container;
 
     /**
      * The resolved object instances.
-     * 
+     *
      * @var array
      */
     protected static $instances = [];
@@ -51,7 +51,7 @@ abstract class Facade
      */
     protected static function resolveFacadeInstance($name)
     {
-        if(! isset(static::$instances[$name])) {
+        if (!isset(static::$instances[$name])) {
             static::$instances[$name] = static::$container->get($name);
         }
 
@@ -60,7 +60,7 @@ abstract class Facade
 
     /**
      * Set the container instance.
-     * 
+     *
      * @param \Interop\Container\ContainerInterface $container
      */
     public static function setContainer($container)
@@ -70,7 +70,7 @@ abstract class Facade
 
     /**
      * Get the container instance.
-     * 
+     *
      * @return \Interop\Container\ContainerInterface
      */
     public static function getContainer()
@@ -89,9 +89,9 @@ abstract class Facade
     {
         $instance = static::getFacadeRoot();
 
-        if (! $instance) {
+        if (!$instance) {
             throw new \RuntimeException('A facade root has not been set.');
-        }        
+        }
 
         switch (count($args)) {
             case 0:

@@ -2,153 +2,153 @@
 
 namespace Core;
 
-use Core\Container;
 use Core\Config\Repository;
-use Support\Facades\Facade;
+use Core\Container;
 use Slim\App;
+use Support\Facades\Facade;
 
 /**
  * The main application.
  */
 class Application extends App
 {
-	/**
-	 * The application's base path.
-	 * 
-	 * @var string
-	 */
-	protected $basePath;
+    /**
+     * The application's base path.
+     *
+     * @var string
+     */
+    protected $basePath;
 
-	/**
-	 * Create a new application.
-	 *
-	 * @param string $basePath
-	 */
-	public function __construct($basePath)
-	{
-		if (is_null($basePath)) {
-			throw new \InvalidArgumentException("The base path has not been set.");
-		}
+    /**
+     * Create a new application.
+     *
+     * @param string $basePath
+     */
+    public function __construct($basePath)
+    {
+        if (is_null($basePath)) {
+            throw new \InvalidArgumentException("The base path has not been set.");
+        }
 
-		parent::__construct($container);
+        parent::__construct($container);
 
-		// Make the container instance used by this application
-		// globally available.
-		Container::setInstance($this->getContainer());
-		
-		$this->setBasePath($basePath);	
+        // Make the container instance used by this application
+        // globally available.
+        Container::setInstance($this->getContainer());
 
-		$this->bootstrap();
-	}
+        $this->setBasePath($basePath);
+
+        $this->bootstrap();
+    }
 
     /**
      * Bootstrap the application.
      */
     protected function bootstrap()
     {
-    	// Read all config files
-		$config = new Repository($this->loadConfigFiles());
+        // Read all config files
+        $config = new Repository($this->loadConfigFiles());
 
-		// Register the configuration instance for later use.
-		// Note that Slim framework already used a service key named 'settings' for 
-		// accessing the framework settings. Here, we will use a separate key for 
-		// the application configurations. If you want to reuse the service key,
-		// you should merge the framework settings with the application configurations.
-		$container = $this->getContainer();
-		$container['config'] = function() use ($config) {
-			return $config;
-		};		
+        // Register the configuration instance for later use.
+        // Note that Slim framework already used a service key named 'settings' for
+        // accessing the framework settings. Here, we will use a separate key for
+        // the application configurations. If you want to reuse the service key,
+        // you should merge the framework settings with the application configurations.
+        $container = $this->getContainer();
+        $container['config'] = function () use ($config) {
+            return $config;
+        };
 
-		date_default_timezone_set($config['app.timezone']);
-		mb_internal_encoding('UTF-8');  
+        date_default_timezone_set($config['app.timezone']);
+        mb_internal_encoding('UTF-8');
 
-		// Register route handler strategy
-		$container['foundHandler'] = function() {
-			return new \Slim\Handlers\Strategies\RequestResponseArgs();
-		};		 
+        // Register route handler strategy
+        $container['foundHandler'] = function () {
+            return new \Slim\Handlers\Strategies\RequestResponseArgs();
+        };
 
-		// Register a logger used in the application
-		$container['logger'] = function() use ($container) {
-		    $logger = new \Monolog\Logger('logger');
-		    $logger->pushProcessor(new \Monolog\Processor\WebProcessor());
-		    $logger->pushHandler(new \Monolog\Handler\StreamHandler(
-		    	$container['path.system'].'logs/error.log', 
-		    	\Monolog\Logger::DEBUG));
+        // Register a logger used in the application
+        $container['logger'] = function () use ($container) {
+            $logger = new \Monolog\Logger('logger');
+            $logger->pushProcessor(new \Monolog\Processor\WebProcessor());
+            $logger->pushHandler(new \Monolog\Handler\StreamHandler(
+                $container['path.system'] . 'logs/error.log',
+                \Monolog\Logger::DEBUG));
 
-		    return $logger;
-		};		
+            return $logger;
+        };
 
-		// Register 500 System Error handler
-		$container['errorHandler'] = function() use ($container) {
-			$errorHandler = new \Core\Handlers\Error($container['config']['app.debug']);
-			$errorHandler->setLogger($container['logger']);
+        // Register 500 System Error handler
+        $container['errorHandler'] = function () use ($container) {
+            $errorHandler = new \Core\Handlers\Error($container['config']['app.debug']);
+            $errorHandler->setLogger($container['logger']);
 
-    		return $errorHandler;
-		};
+            return $errorHandler;
+        };
 
-    	// Register 404 Not Found handler
- 		$container['notFoundHandler'] = function() {
-    		return new \Core\Handlers\NotFound();
-		};	   	
+        // Register 404 Not Found handler
+        $container['notFoundHandler'] = function () {
+            return new \Core\Handlers\NotFound();
+        };
 
-		// Register 405 Method Not Allowed handler
-		$container['notAllowedHandler'] = function() {
-    		return new \Core\Handlers\NotAllowed();
-		};		 
+        // Register 405 Method Not Allowed handler
+        $container['notAllowedHandler'] = function () {
+            return new \Core\Handlers\NotAllowed();
+        };
 
-		// Register the specified providers.		
-		$providers = $config['app.providers'];
-		foreach($providers as $provider) {
-			$container->register(new $provider);
-		}
+        // Register the specified providers.
+        $providers = $config['app.providers'];
+        foreach ($providers as $provider) {
+            $container->register(new $provider);
+        }
 
-		// Register facades which are shortcuts 
-		// for accessing registered services.
-		Facade::setContainer($container);
+        // Register facades which are shortcuts
+        // for accessing registered services.
+        Facade::setContainer($container);
     }
 
     /**
      * Shortcut for registering services into the container.
-     * 
+     *
      * @param  string $key
      * @param  mixed $value
      */
     public function register($key, $value)
     {
-    	$this->getContainer()[$key] = $value;
-    }    
+        $this->getContainer()[$key] = $value;
+    }
 
     /**
      * Load the configuration files.
-     * 
+     *
      * @return  array
      */
     protected function loadConfigFiles()
     {
-    	$items = [];
+        $items = [];
 
-        $files = glob($this->configPath().'*.php');
-    	foreach($files as $file) {
+        $files = glob($this->configPath() . '*.php');
+        foreach ($files as $file) {
             $name = basename($file, '.php');
             $items[$name] = require $file;
-    	}
+        }
 
-    	return $items;
-    }	
+        return $items;
+    }
 
-	/**
-	 * Set the path to the framework installation.
-	 *
-	 * @return \Core\Application
-	 */
-	public function setBasePath($basePath)
-	{
-		$this->basePath = $basePath;
+    /**
+     * Set the path to the framework installation.
+     *
+     * @return \Core\Application
+     */
+    public function setBasePath($basePath)
+    {
+        $this->basePath = $basePath;
 
-		$this->bindPathsInContainer();
+        $this->bindPathsInContainer();
 
-		return $this;
-	}	
+        return $this;
+    }
 
     /**
      * Bind all of the application paths in the container.
@@ -157,54 +157,54 @@ class Application extends App
      */
     protected function bindPathsInContainer()
     {
-    	$container = $this->getContainer();
+        $container = $this->getContainer();
 
         $container['path'] = $this->path();
 
         foreach (['base', 'system', 'config', 'lang'] as $path) {
-            $container['path.'.$path] = $this->{$path.'Path'}();
+            $container['path.' . $path] = $this->{$path . 'Path'}();
         }
-    }	
+    }
 
-	/**
-	 * Get the path to the framework installation.
-	 *
-	 * @return string
-	 */
-	public function basePath()
-	{
-		return $this->basePath;
-	}
+    /**
+     * Get the path to the framework installation.
+     *
+     * @return string
+     */
+    public function basePath()
+    {
+        return $this->basePath;
+    }
 
-	/**
-	 * Get the path to the application "app" directory.
-	 * 
-	 * @return string
-	 */
-	protected function path()
-	{
-		return $this->basePath.'app'.DIRECTORY_SEPARATOR;
-	}
+    /**
+     * Get the path to the application "app" directory.
+     *
+     * @return string
+     */
+    protected function path()
+    {
+        return $this->basePath . 'app' . DIRECTORY_SEPARATOR;
+    }
 
-	/**
-	 * Get the path to the application "system" directory.
-	 * 
-	 * @return string
-	 */
-	protected function systemPath()
-	{
-		return $this->basePath.'system'.DIRECTORY_SEPARATOR;
-	}	
+    /**
+     * Get the path to the application "system" directory.
+     *
+     * @return string
+     */
+    protected function systemPath()
+    {
+        return $this->basePath . 'system' . DIRECTORY_SEPARATOR;
+    }
 
-	/**
-	 * Get the path to the application configuration files.
-	 * 
-	 * @return string
-	 */
-	protected function configPath()
-	{
-		return $this->basePath.'system'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
-	}
+    /**
+     * Get the path to the application configuration files.
+     *
+     * @return string
+     */
+    protected function configPath()
+    {
+        return $this->basePath . 'system' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;
+    }
 
     /**
      * Get the path to the language files.
@@ -213,6 +213,6 @@ class Application extends App
      */
     protected function langPath()
     {
-        return $this->basePath.'system'.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR;
+        return $this->basePath . 'system' . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR;
     }
 }

@@ -10,7 +10,7 @@ use Support\Arr;
  */
 class Repository implements ArrayAccess
 {
-	/**
+    /**
      * All of the configuration items.
      *
      * @var array
@@ -19,12 +19,12 @@ class Repository implements ArrayAccess
 
     /**
      * Create a new configuration instance.
-     * 
+     *
      * @param array $items
      */
     public function __construct(array $items = [])
     {
-    	$this->items = $items;
+        $this->items = $items;
     }
 
     /**
@@ -36,7 +36,7 @@ class Repository implements ArrayAccess
     public function has($key)
     {
         return Arr::has($this->items, $key);
-    }    
+    }
 
     /**
      * Get the specified configuration value.
@@ -47,7 +47,7 @@ class Repository implements ArrayAccess
      */
     public function get($key, $default = null)
     {
-    	return Arr::get($this->items, $key, $default);
+        return Arr::get($this->items, $key, $default);
     }
 
     /**
@@ -66,7 +66,7 @@ class Repository implements ArrayAccess
         } else {
             Arr::set($this->items, $key, $value);
         }
-    }  
+    }
 
     /**
      * Get all of the configuration items for the application.
@@ -76,7 +76,7 @@ class Repository implements ArrayAccess
     public function all()
     {
         return $this->items;
-    }    
+    }
 
     /**
      * Determine if the given configuration option exists.
@@ -121,5 +121,5 @@ class Repository implements ArrayAccess
     public function offsetUnset($key)
     {
         $this->set($key, null);
-    }      
+    }
 }

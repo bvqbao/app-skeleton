@@ -54,7 +54,7 @@ class RainCaptcha
         if (empty($answer)) {
             return false;
         }
-        $response = file_get_contents(self::HOST . '/check/' . $this->sessionId. '/' . $answer);
+        $response = file_get_contents(self::HOST . '/check/' . $this->sessionId . '/' . $answer);
         if ($response === false) {
             return true;
         }

@@ -18,14 +18,14 @@ class Error
 {
     /**
      * Should the error details get displayed?
-     * 
+     *
      * @var bool
      */
     protected $displayErrorDetails;
 
     /**
      * The error logger
-     * 
+     *
      * @var \Monolog\Logger
      */
     protected $logger;
@@ -49,12 +49,12 @@ class Error
      */
     public function __construct($displayErrorDetails = false)
     {
-        $this->displayErrorDetails = (bool)$displayErrorDetails;
+        $this->displayErrorDetails = (bool) $displayErrorDetails;
     }
 
     /**
      * Set the error logger
-     * 
+     *
      * @param \Monolog\Logger $logger
      */
     public function setLogger(Logger $logger)
@@ -97,9 +97,9 @@ class Error
         $body->write($output);
 
         return $response
-                ->withStatus(500)
-                ->withHeader('Content-type', $contentType)
-                ->withBody($body);
+            ->withStatus(500)
+            ->withHeader('Content-type', $contentType)
+            ->withBody($body);
     }
 
     /**

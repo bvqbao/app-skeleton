@@ -10,11 +10,10 @@ class Assets
     /**
      * @var array Asset templates
      */
-    protected static $templates = array
-    (
-        'js'  => '<script src="%s" type="text/javascript"></script>',
-        'css' => '<link href="%s" rel="stylesheet" type="text/css">'
-    );
+    protected static $templates = [
+        'js' => '<script src="%s" type="text/javascript"></script>',
+        'css' => '<link href="%s" rel="stylesheet" type="text/css">',
+    ];
 
     /**
      * Common templates for assets.
