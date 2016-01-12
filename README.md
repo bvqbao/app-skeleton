@@ -18,5 +18,4 @@ This is a simple MVC framework built from the following packages:
 4. Run ```composer update``` to pull out the dependencies.
 5. Setup your routes at ```app/routes.php```.
 
-If you don't have a "real" web server installed, you can use the PHP's build-in server (for development only) as follows:
-```php -S localhost:8080 -t public/```
+If you don't have a "real" web server installed, you can use the PHP's build-in web server (for development only) as follows: ```php -S localhost:8080 -t public/```
