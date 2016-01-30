@@ -1,5 +1,5 @@
 {
-    "name": "slimvc/app-skeleton",
+    "name": "bvqbao/app-skeleton",
     "type": "project",
     "description": "Framework for PHP 5.5+",
     "license": "MIT",
@@ -23,11 +23,11 @@
     },
     "autoload": {
         "psr-4": {
-            "": "slimvc/",
+            "": "system/",
             "App\\": "app/"
         },
         "files": [
-            "slimvc/Support/helpers.php"
+            "system/Support/helpers.php"
         ]
     }
 }
