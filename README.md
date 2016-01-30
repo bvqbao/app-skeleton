@@ -17,5 +17,5 @@ This is a simple MVC framework built from the following packages:
 3. Open ```.htaccess``` file, update ```RewriteBase``` (if necessary).
 4. Run ```composer update``` to pull out the dependencies.
 5. Setup your routes at ```app/routes.php```.
+6. If you want to use the PHP's build-in web server: ```php -S localhost:8080 -t public/```
 
-To use the PHP's build-in web server: ```php -S localhost:8080 -t public/```
